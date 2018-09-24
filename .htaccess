@@ -1,0 +1,23 @@
+RewriteEngine On
+RewriteBase /astral-pipes
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^home/$ /astral-pipes/index.php [L]
+RewriteRule ^faq$ /astral-pipes/faq.php [L]
+RewriteRule ^faq/$ /astral-pipes/faq.php [L]
+
+RewriteRule ^career$ /astral-pipes/career.php [L]
+RewriteRule ^career/$ /astral-pipes/career.php [L]
+
+RewriteRule ^career-details/([^/]*)/$ /astral-pipes/career-details.php?id=$1 [L]
+RewriteRule ^career-details/([^/]*)$ /astral-pipes/career-details.php?id=$1 [L]
+
+RewriteRule ^clients$ /astral-pipes/clients.php [L]
+RewriteRule ^clients/$ /astral-pipes/clients.php [L]
+
+RewriteRule ^news-events$ /astral-pipes/news-and-events.php [L]
+RewriteRule ^news-events/$ /astral-pipes/news-and-events.php [L]
+
+RewriteRule ^applications/([^/]*)-([^/]*)$  /astral-pipes/applications.php?title=$1&id=$2 [L]
+RewriteRule ^applications/([^/]*)-([^/]*)/$  /astral-pipes/applications.php?title=$1&id=$2 [L]
