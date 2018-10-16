@@ -80,9 +80,9 @@ else{
 				  <th width="8%"> Boucher</th>
 				  <th width="20">Application</th>
 				  <!--<th width="30">Description</th>-->
-				  <th width="10%">Desktop Image</th>
-				  <th width="10%">Tab Image</th>
-				  <th width="10%">Mobile Image</th>
+				  <th width="10%">Image</th>
+				  <!--<th width="10%">Tab Image</th>
+				  <th width="10%">Mobile Image</th>-->
 				  <th width="10%">Product range</th>
                   <th width="5%">Status</th>
                   <th width="8%">Action</th>
@@ -114,7 +114,7 @@ else{
                       <?php
                   }
                   ?></td>
-				   <td><?php
+				  <!-- <td><?php
                   if($val['tab_image'] != ""){
                       ?>
                       <img src="../uploads/product_images/medium/<?php echo $val['tab_image']; ?>" width="100px"  />
@@ -127,7 +127,7 @@ else{
                       <img src="../uploads/product_images/small/<?php echo $val['mobile_image']; ?>" width="100px"  />
                       <?php
                   }
-                  ?></td>
+                  ?></td>-->
 				  <td>
 				  <a href="add_product_range.php?product_id=<?=$val['id']?>"><span class='label label-primary'>Add</span> </a>
 				  <a href="list_product_range.php"><span class='label label-primary'>View</span></a></td>

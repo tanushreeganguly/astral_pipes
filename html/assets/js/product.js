@@ -91,6 +91,24 @@ $(document).ready(function(){
     });
     /*+++++++++++Scroll To Code++++++++++++*/
 
+
+    var tabList = $('.headerlistingsec').find('li');
+    tabList.each(function(){
+        $(this).bind('click', function(){
+            var scrollPos = $(this).attr('scrollTo');
+            //console.log(currId);
+            $("html, body").animate({ scrollTop:($(scrollPos).offset().top - 180) }, {duration:1200});
+        });
+    });
+
+
+
+
+
+
+
+
+
     /*Open Specifications On Mobile*/
     $('.res_specs_tl a').bind('click', function(){
 

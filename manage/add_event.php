@@ -55,10 +55,10 @@ $res_arr	= $objTypes->fetchRow("SELECT * FROM tbl_event WHERE id = :id", $params
                 <label for="exampleInputEmail1">Short Description</label>
                 <textarea class="form-control" placeholder="Short Description..." name="short_description" id="editor1" rows="3" style="width:40%;"><?=($res_arr['short_description'])?></textarea>
               </div>
-              <div class="form-group">
+              <!--div class="form-group">
                 <label for="exampleInputEmail1">Link</label>
                 <input type="url" class="form-control " id="link" name="link" value="<?=stripslashes($res_arr['link'])?>" placeholder="Link" style="width:40%;">
-              </div>
+              </div-->
 			  
 			  <!--div class="form-group">
                 <label for="exampleInputEmail1">Release date<?=MANDATORY?></label>
@@ -160,7 +160,7 @@ else{
 function validateForm(){
 	if($("input#title").val()==""){
 		$(".errorDiv").show().fadeOut(4000);
-		$('#errormessage').text("Category Title is Mandatory");
+		$('#errormessage').text("Title is Mandatory");
 		$("input#title").focus();
 		return false;
 	}

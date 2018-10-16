@@ -1,14 +1,18 @@
-<?php	include_once('config/config.php');	?>
-<!doctype html>
+<?php
+include_once('config/config.php');	
+$page	=	$objTypes->fetchRow('select meta_title,meta_description,meta_keywords from tbl_pages where id=10');
+?>
+<!doctype html> 
 <html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
-  <title>Astral Pipes</title>
-  <meta name="description" content="" />    
-  <meta name="keywords" content="" />
+   <title><?=stripslashes($page['meta_title']);?></title>
+  <meta name="description" content="<?=stripslashes($page['meta_description']);?>" />
+  <meta name="keywords" content="<?=stripslashes($page['meta_keywords']);?>" />
   <link href="<?=base_url?>assets/images/favicon.ico" rel="shortcut icon" type="" />
   <link href="<?=base_url?>assets/css/main.css" rel="stylesheet" type="text/css">
+  <?php include_once('include/googlecode.php'); ?>
 </head>
 <body>
   <?php include_once('include/othercode.php'); ?>
@@ -37,7 +41,7 @@
 				if(isset($cat_arr) && sizeof($cat_arr) > 0){
 				  foreach ($cat_arr as $cat_v){ 
 				?>	
-					<li class="client_cat<?=($i==1) ? ' active' : ''?>" id="<?=$cat_v['id']?>" rel="tab<?=$cat_v['id']?>"><?=$cat_v['title']?></li>
+					<li class="client_cat<?=($i==1) ? ' active' : ''?>" id="<?=$cat_v['id']?>" rel="tab<?=$cat_v['id']?>"><?=stripslashes($cat_v['title'])?></li>
 				<?php $i++; } }?>
 				</ul>
 				<div class="clear"></div>
@@ -45,12 +49,13 @@
 			<div class="tab_container">
 			<?php
 				# Clients 
-				$clients_arr 	= $objTypes->FetchAll("SELECT c.*,cat.title as name,cat.image as image FROM `tbl_clients` c left join tbl_client_category cat on c.`client_cat_id` = cat.id where cat.is_active=1 and cat.is_delete=1");
-				$i = 1; 
+				$clients_arr 	= $objTypes->FetchAll("SELECT c.*,cat.title as name,cat.image as image, cat.sortorder FROM `tbl_clients` c left join tbl_client_category cat on c.`client_cat_id` = cat.id where cat.is_active=1 and cat.is_delete=1 order by cat.sortorder ASC ");
+				$i = 1;
+				//print_r($clients_arr);
 				if(isset($clients_arr) && sizeof($clients_arr) > 0){
-				  foreach ($clients_arr as $clients_v){ 
+				  foreach ($clients_arr as $clients_v){
 				?>	
-				<h3 class="d_active tab_drawer_heading" rel="tab<?=$i?>"><?=$clients_v['name']?></h3>
+				<h3 class="d_active tab_drawer_heading" rel="tab<?=$clients_v['client_cat_id']?>"><?=stripslashes($clients_v['name'])?></h3>
 				<div id="tab<?=$clients_v['client_cat_id']?>" class="tab_content">
 					<div class="allclientlistingH">
 					  <div class="box_topimg">
@@ -58,7 +63,7 @@
 							<img src="<?=base_url?>uploads/client_images/<?=$clients_v['image']?>" alt="<?=$clients_v['name']?>">
 						<?php } ?>
 						</div>
-					  <div class="titlenameclist"><?=$clients_v['name']?></div>
+					  <div class="titlenameclist"><?=stripslashes($clients_v['name'])?></div>					  
 					   <?=stripslashes($clients_v['description'])?>
 					</div>
 				</div>					  

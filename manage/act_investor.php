@@ -55,10 +55,13 @@ if(($POST['SAVE']=="SAVE")){
 					header("location:add_investor.php?sysmsg=35");
 					exit();	
 				}
-				if(isset($_FILES['catalogue']['name'])){
+				if(isset($_FILES['catalogue']['name'])){					
 					$ext 	  = pathinfo($_FILES['catalogue']['name'], PATHINFO_EXTENSION);
-					$filename = basename($_FILES['catalogue']['name'], $ext);			
-					$filename = 'broucher_'.time().'.'.$ext;
+					echo $filename = basename($_FILES['catalogue']['name'], $ext);
+					$filename		=	strtolower($_FILES['catalogue']['name']);	
+					$filename = str_replace(' ', '_', $filename); 
+					$filename = str_replace('', '.', $filename); 				
+					$filename = time().'_'.$filename;
 					$movefile = move_uploaded_file($_FILES['catalogue']['tmp_name'], "../uploads/investor_broucher/".$filename);				
 				}
 				$update_params  = array('broucher'=> $filename);

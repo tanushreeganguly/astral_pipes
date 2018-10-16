@@ -45,11 +45,11 @@ if($id!=0){
             <div class="box-body">
               <div class="form-group">
                 <label for="exampleInputEmail1">Title<?=MANDATORY?></label>
-                <input type="text" class="form-control " id="title" name="title" value="<?=stripslashes($res_arr['product_name'])?>" placeholder="Title" style="width:40%;" required>
+                <input type="text" class="form-control " id="title" name="title" value="<?=stripslashes($res_arr['product_name'])?>" placeholder="Title" style="width:40%;" >
               </div>
 			 <div class="form-group">
 			  <label for="exampleInputEmail1">Product<?=MANDATORY?></label>
-			  <select class="form-control" name="product_id" id="product_id" style="width: 40%" required>
+			  <select class="form-control" name="product_id" id="product_id" style="width: 40%" required >
 				  <option value="">Select Product</option>
 				  <?php
                       $prod_arr	= $objTypes->fetchAll("SELECT title, id FROM tbl_products_details WHERE is_delete='1' AND is_active='1' ");
@@ -81,7 +81,7 @@ if($id!=0){
 			 
 			 <div class="form-group">
 			  <label for="exampleInputEmail1">Product Category<?=MANDATORY?></label>
-			  <select class="form-control" name="product_cat_id" id="product_cat_id" style="width: 40%" required>
+			  <select class="form-control" name="product_cat_id" id="product_cat_id" style="width: 40%" required >
 				  <option value="">Select Product Category</option>
 				  <?php
                       $cat_arr	= $objTypes->fetchAll("SELECT title, id FROM tbl_product_category WHERE is_delete='1' AND is_active='1'");
@@ -102,8 +102,8 @@ if($id!=0){
 			  </select>
              </div>
 			 <div class="form-group">
-                <label for="exampleInputEmail1">Product Subcategory name<?=MANDATORY?></label>
-                <input type="text" class="form-control " id="product_subcat_name" name="product_subcat_name" value="<?=stripslashes($res_arr['product_subcat_name'])?>" placeholder="Product Subcategory name" style="width:40%;" required>
+                <label for="exampleInputEmail1">Product Subcategory name</label>
+                <input type="text" class="form-control " id="product_subcat_name" name="product_subcat_name" value="<?=stripslashes($res_arr['product_subcat_name'])?>" placeholder="Product Subcategory name" style="width:40%;" >
               </div>
              <div class="form-group">
                 <label for="exampleInputEmail1">Description</label>
@@ -111,7 +111,7 @@ if($id!=0){
               </div>
               
               <div class="form-group">
-				<label for="exampleInputEmail1">Image<?=MANDATORY?></label>
+				<label for="exampleInputEmail1">Image</label>
 					<input type="file" class="form-control " id="image" name="image" value="" placeholder="Product Image" style="width:40%;" onchange="return Checkfile()">
 					<div class="alert alert-danger alert-dismissible" style="width:40%;margin-top:10px;">[Note:- File Size : 1920 x 695  , MAX File Upload Size : 3MB]</div>
 					<?php if($res_arr['image']){ ?>

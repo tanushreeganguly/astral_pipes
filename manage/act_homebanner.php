@@ -4,7 +4,8 @@
 require_once("../config/config.php");
 require_once("verify_logins.php");
 
-
+error_reporting(E_ALL | E_STRICT);
+ini_set('display_errors',1);
 #==== Validations For Security
 $POST		= $objTypes->validateUserInput($_POST);
 $id 		= isset($POST['id']) ? intval($POST['id']) : intval($_REQUEST['id']) ;

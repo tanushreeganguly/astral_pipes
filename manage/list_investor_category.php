@@ -28,6 +28,18 @@ $from		= $pgNo * ADMIN_COUNT - ADMIN_COUNT;
 $to 		= $from + ADMIN_COUNT;
 $limit		= "$from,".ADMIN_COUNT;
 $order		= 'title ASC';
+
+if($POST['setpriority'] == 'Sort Order'){  
+	for($i=0;$i<$total;$i++){   
+		if(($POST["sortorder".$i]>=0)&&($POST['sortorder_id'.$i]>0)){
+			$params = array('sortorder' => $POST["sortorder".$i]); 
+			$where  = array(':id' => $POST['sortorder_id'.$i]);
+			$update = $objTypes->update("tbl_investor_category", $params, "id = :id", $where);	
+		}
+	} 
+	header("location:list_investor_category.php?sysmsg=1001");
+	exit();
+}
 if($title){
     $res_arr = $objTypes->select("tbl_investor_category", "*", "is_delete = :is_delete AND title LIKE :title", $where, "title ASC", $limit);
 }
@@ -77,6 +89,7 @@ else{
                   <th width="1%"><input type="checkbox" id="selectall"/></th>
                   <th width="4%">#</th>
                   <th width="35%"> Title</th>
+				  <th width="10%"><input type="submit" name="setpriority" id="setpriority" class="btn btn-block btn-danger btn-sm" value="Sort Order"></th>
                   <th width="10%">Status</th>
                   <th width="10%">Action</th>
                 </tr>
@@ -91,6 +104,10 @@ else{
                   <td><input type="checkbox" class="case" id="DelCheckBox[]" name="DelCheckBox[]" value="<?=$val['id']?>"/></td>
                   <td><?=$sino;?></td>
                   <td><?=stripslashes($val['title'])?></td>
+				  <td align="center">                  
+					<input type="text" id="sortorder<?php echo $key; ?>" name="sortorder<?php echo $key; ?>"  value="<?php echo $val['sortorder']; ?>" onkeypress="return validateNumbersOnly(event)"  style="width:30px; text-align:center;"/>
+					<input type="hidden" id="sortorder_id<?php echo $key; ?>" name="sortorder_id<?php echo $key; ?>"  value="<?php echo $val['id']; ?>"  />                               
+				  </td>
                   <td><a href="act_investor_category.php?id=<?=$val['id']?>&status=<?=$val['is_active']?>&pgNo=<?=base64_encode($pgNo)?>">
                     <?=($val['is_active'] == "1") ? "<span class='label label-success'>Active</span>":"<span class='label label-danger'>Inactive</span>" ?>
                     </a> </td>

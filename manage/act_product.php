@@ -8,16 +8,25 @@ $POST		= $objTypes->validateUserInput($_POST);
 $id 		= isset($POST['id']) ? intval($POST['id']) : intval($_REQUEST['id']) ;
 $ip			= $_SERVER['REMOTE_ADDR'];
 $agent		= addslashes($_SERVER['HTTP_USER_AGENT']);
+$app_ids = $_POST['app_id'];
+
+$napp_ids = count($app_ids);
+//echo $napp_ids;
+	//print_r($app_ids); exit; 
 #==== ADD - UPDATE - INSERT
 if(($POST['SAVE']=="SAVE")){
+	for($i=0; $i < $napp_ids; $i++)
+    {
     $pgNo 	= intval(base64_decode($_REQUEST['pgNo']));
 	$params = array(
 		'title'	            => $POST['title'],
         'short_description'	=>($_POST['short_description']),		
-		'app_id'   	=>($_POST['app_id']),			
-		//'product_cat_id'   	=>($_POST['product_cat_id']),
-		'about'	        	=>($_POST['about']),
-		'technical_details'	=>($_POST['technical_details']),
+		'app_id'   			=> $app_ids[$i],		
+		'short_code' 		=> $POST['short_code'],		
+		'description'   	=>($_POST['description']),
+		'additional_details'=>($_POST['additional_details']),
+		'technical_details'	=>($_POST['technical_details']),		
+		'long_technical_details'	=>($_POST['long_technical_details']),
 		'features_benefits'	=>($_POST['features_benefits']),
 		'meta_description'  => $POST['meta_description'],
         'meta_keywords'     => $POST['meta_keywords'],
@@ -28,29 +37,28 @@ if(($POST['SAVE']=="SAVE")){
 	);
     if($id > 0){
 		$update_params = array(
-	        'updated_date'		=> date("Y-m-d H:i:s"),
-	        'updated_by'   		=> $_SESSION['SessAdminName'],
+	        'updated_date'	=> date("Y-m-d H:i:s"),
+	        'updated_by'   	=> $_SESSION['SessAdminName'],
 		);
 		$params = array_merge($params, $update_params);
 		$where  = array(
-			':id'          => $id
+			':id'  => $id
 		);
 		$update 	= $objTypes->update("tbl_products_details", $params, "id = :id", $where);
 		if($update){
 			$insert_id	= $id;
 		}
-	}
-	else{
+	}else{
 		$insert = $objTypes->insert("tbl_products_details", $params);
 		if($insert){
 			$insert_id = $objTypes->lastInsertId();
 		}
 	}
-	if($insert_id > 0){
-		
+	}
+	if($insert_id > 0){		
 		if(isset($_FILES['logo']['name']) && $_FILES['logo']['name'] != ""){
-			$validatefiles 	= array("jpg", "bmp", "jpeg", "gif","JPG", "BMP", "JPEG", "GIF");
-			$filetype 		= array('image/gif', 'image/jpeg', 'image/JPEG', 'image/GIF', 'image/bmp', 'image/BMP');
+			$validatefiles 	= array("png","PNG","jpg", "bmp", "jpeg", "gif","JPG", "BMP", "JPEG", "GIF");
+			$filetype 		= array('image/png','image/PNG','image/gif', 'image/jpeg', 'image/JPEG', 'image/GIF', 'image/bmp', 'image/BMP');
 			$ext 	  		= pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
             $ext 	  		= strtolower($ext);
 			$filename 		= basename($_FILES['logo']['name'], $ext);
@@ -78,6 +86,40 @@ if(($POST['SAVE']=="SAVE")){
 				$magicianObj = new imageLib($path);
 				$magicianObj->saveImage($main_image, 100,$option = 2);
 				$img_params = array('logo' => 'main_'.$filename);
+				$update     = $objTypes->update("tbl_products_details", $img_params, "id = :id", $where);
+			}
+		}
+		
+		if(isset($_FILES['brand_logo']['name']) && $_FILES['brand_logo']['name'] != ""){
+			$validatefiles 	= array("PNG","png","jpg", "bmp", "jpeg", "gif","JPG", "BMP", "JPEG", "GIF");
+			$filetype 		= array('image/PNG','image/png','image/gif', 'image/jpeg', 'image/JPEG', 'image/GIF', 'image/bmp', 'image/BMP');
+			$ext 	  		= pathinfo($_FILES['brand_logo']['name'], PATHINFO_EXTENSION);
+            $ext 	  		= strtolower($ext);
+			$filename 		= basename($_FILES['brand_logo']['name'], $ext);
+            $filename 		= time().'.'.$ext;
+			if($_FILES['brand_logo']['size'] > 3097152){
+				header("location:add_product.php?sysmsg=16&id=".$insert_id);
+                exit();
+            }
+            if(in_array($ext, $validatefiles) == false){
+                header("location:add_product.php?sysmsg=11&id=".$insert_id);
+                exit();
+            }
+			if(in_array(strtolower($_FILES['brand_logo']['type']), $filetype) == false ){
+                header("location:add_product.php?sysmsg=11&id=".$insert_id);
+                exit();
+            }
+			$where      = array(':id' => $insert_id);
+			$imagename	= $objTypes->fetchRow("SELECT brand_logo FROM tbl_products_details WHERE id = :id", $where);
+			unlink("../uploads/product_images/brand_logo/".str_replace('main_', '', $imagename['brand_logo']));		
+			unlink("../uploads/product_images/brand_logo/".$imagename['brand_logo']);
+			unlink("../uploads/product_images/brand_logo/".$imagename['brand_logo']);
+			if(move_uploaded_file($_FILES['brand_logo']['tmp_name'], "../uploads/product_images/brand_logo/".$filename)){
+				$path 		= "../uploads/product_images/brand_logo/".$filename;
+				$main_image = "../uploads/product_images/brand_logo/main_".$filename;
+				$magicianObj = new imageLib($path);
+				$magicianObj->saveImage($main_image, 100,$option = 2);
+				$img_params = array('brand_logo' => 'main_'.$filename);
 				$update     = $objTypes->update("tbl_products_details", $img_params, "id = :id", $where);
 			}
 		}
@@ -229,6 +271,7 @@ if(($POST['SAVE']=="SAVE")){
 		header("location:list_product.php?sysmsg=14&pgNo=$pgNo");
 		exit();	
 }
+
 
 #==== STATUS UPDATION
 if(($_REQUEST['status']<>"") && ($_REQUEST['id'] <> "")){

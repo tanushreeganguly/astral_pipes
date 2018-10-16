@@ -39,6 +39,38 @@ $(document).ready(function(){
 		var topHeader = $('.hd_top').remove();
 		$(topHeader).insertAfter('ul.slimmenu.collapsed > li:last-child');
 		TweenMax.set('.hd_top', {display:'block'});
+
+
+   var resSearch = $('.search').remove();
+		$('.res_top').append(resSearch);
+	
+	$('#nav-icon1').click(function(){
+			if($('#nav-icon1').hasClass('open')){
+				$(this).removeClass('open');
+				closeMobileMenu();
+			}else{				
+				$(this).addClass('open');
+				TweenMax.to('nav', 0.5, {left: 0, ease: Sine.easeInOut });
+				TweenMax.set('.menuOverlay',{'display':'block'},'lable');
+				TweenMax.set('body',{'overflow':'hidden'},'lable');
+			}
+		});
+
+$('.menuOverlay').bind('click', function(){
+			$('#nav-icon1').removeClass('open');
+			closeMobileMenu();
+		});
+		$('.mobileMenuClose').bind('click', function(){
+			$('#nav-icon1').removeClass('open');
+			closeMobileMenu();
+		});
+
+		function closeMobileMenu(){
+			TweenMax.to('nav', 0.5, {left: '-100%', ease: Sine.easeInOut} ,'lable');
+			TweenMax.set('.menuOverlay',{'display':'none'},'lable');
+			TweenMax.set('body',{'overflow':'auto'});
+		}
+
 	}
 
 	TweenMax.set('#search_con', { opacity:0, top:'-50%'});
@@ -101,6 +133,19 @@ $(document).ready(function(){
 			TweenMax.to('.product_graystrip',0.1,{position:'relative',left:'0', top:0,ease:Sine.easeInOut});
 		}
 
+		if ($(this).scrollTop() > 100) {
+			TweenMax.to('.abouttopListnav', 0.1, { position: 'fixed', left: '0px;', top: 65 + 'px', ease: Sine.easeInOut });
+		} else {
+			TweenMax.to('.abouttopListnav', 0.1, { position: 'relative', left: '0', top: 0, ease: Sine.easeInOut });
+		}
+		
+		
+		if ($(this).scrollTop() > 100) {
+			TweenMax.to('#scrollNav', 0.1, { position: 'fixed', left: '0px;', top: 65 + 'px', ease: Sine.easeInOut });
+		} else {
+			TweenMax.to('#scrollNav', 0.1, { position: 'relative', left: '0', top: 0, ease: Sine.easeInOut });
+		}
+
 	});
 	
 	function onWindowResize(){
@@ -108,6 +153,45 @@ $(document).ready(function(){
 	}
 
 	$(window).resize(onWindowResize);
+
+// 		$('#chooseFile').bind('change', function () {
+// var filename = $("#chooseFile").val();
+// if (/^\s*$/.test(filename)) {
+// $(".file-upload").removeClass('active');
+// $("#noFile").text("No file chosen...");
+// }
+// else {
+// $(".file-upload").addClass('active');
+// $("#noFile").text(filename.replace("C:\\fakepath\\", ""));
+// }
+// });
+	
+function menuRolloverImgChange(){
+		var menuListArr = $('.sub_nav_list').find('li');
+		var menuImgArr = $('.sub_img_ref').find('img');
+		console.log(menuImgArr.length);
+		menuImgArr.css({'display':'none'});
+		$(menuImgArr[0]).css({'display':'block'});
+		function changeImages(i){
+			var currList = $(menuListArr[i]);
+			currList.mouseenter(function(){
+				console.log('asdasdsad');
+				menuImgArr.css({'display':'none'});
+				$(menuImgArr[i]).fadeIn(300);
+			});
+		}
+
+		menuListArr.mouseleave(function(){
+			menuImgArr.css({'display':'none'});
+			$(menuImgArr[0]).css({'display':'block'});
+		});
+
+		for(var i=0; i<menuListArr.length; i++){
+			changeImages(i);
+		}
+	}
+	menuRolloverImgChange();
+
 });
 
 //client list page responsive sectin//
@@ -143,6 +227,7 @@ $(document).ready(function(){
 
 
     // http://www.entheosweb.com/tutorials/css/tabs.asp
+    
     $(".tab_content").hide();
     $(".tab_content:first").show();
 
@@ -173,9 +258,12 @@ $(document).ready(function(){
 	  $("ul.tabs li").removeClass("active");
 	  $("ul.tabs li[rel^='"+d_activeTab+"']").addClass("active");
     });
-	
-	
+		
 	/* Extra class "tab_last" 
 	   to add border to right side
 	   of last tab */
 	$('ul.tabs li').last().addClass("tab_last");
+	
+	
+	
+	

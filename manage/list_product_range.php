@@ -29,9 +29,9 @@ $to 		= $from + ADMIN_COUNT;
 $limit		= "$from,".ADMIN_COUNT;
 $order		= 'r.product_name ASC';
 if($title){
-    $res_arr = $objTypes->fetchAll("SELECT p.title as p_title,c.title as c_title, r.* FROM `tbl_product_range` r left join tbl_products_details p on r.product_id=p.id left join tbl_product_category c on c.id=r.product_cat_id where r.is_active=1 and r.is_delete=1 and r.product_name like '%".$title."%' order by r.id DESC");
+    $res_arr = $objTypes->fetchAll("SELECT p.title as p_title,c.title as c_title, r.* FROM `tbl_product_range` r left join tbl_products_details p on r.product_id=p.id left join tbl_product_category c on c.id=r.product_cat_id where r.is_active=1 and r.is_delete=1 and r.product_name like '%".$title."%' order by r.id DESC limit $limit");
 }else{
-    $res_arr = $objTypes->fetchAll("SELECT p.title as p_title,c.title as c_title, r.* FROM `tbl_product_range` r left join tbl_products_details p on r.product_id=p.id left join tbl_product_category c on c.id=r.product_cat_id where r.is_active=1 and r.is_delete=1 ");
+    $res_arr = $objTypes->fetchAll("SELECT p.title as p_title,c.title as c_title, r.* FROM `tbl_product_range` r left join tbl_products_details p on r.product_id=p.id left join tbl_product_category c on c.id=r.product_cat_id where r.is_active=1 and r.is_delete=1 limit $limit");
 }
 ?>
 <!-- Content Wrapper. Contains page content -->
@@ -106,7 +106,7 @@ if($title){
                     </a> </td>
                   <td>
                   <a href="add_product_range.php?id=<?=$val['id']?>&pgNo=<?=base64_encode($pgNo)?>"><i class="fa  fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                  <a href="act_product.php?id=<?=$val['id']?>&pgNo=<?=base64_encode($pgNo)?>&action=delete" onclick="return window.confirm('Do you want to delete this record?')"><i class="fa  fa-trash"></i></a>
+                  <a href="act_product_range.php?id=<?=$val['id']?>&pgNo=<?=base64_encode($pgNo)?>&action=delete" onclick="return window.confirm('Do you want to delete this record?')"><i class="fa  fa-trash"></i></a>
                   </td>
                 </tr>
                 <?php } }  else { print "<tr><td colspan='9'> NO Records Found !!!</td></tr>";} ?>
@@ -211,7 +211,7 @@ function Delete_CheckBox(){
 	if(numberOfChecked>=1){
 		if(confirm("Are you sure  want to Delete Selected Record ?.")){
 			$("#action").attr("value","deleteall");
-			document.frmListing.action='act_product.php?action=deleteall';
+			document.frmListing.action='act_product_range.php?action=deleteall';
 			document.frmListing.submit();
 		}
 	}else{
@@ -225,7 +225,7 @@ function Active_CheckBox(){
 	if(numberOfChecked>=1){
 		if(confirm("Are you sure  want to Activate Selected Record ?.")){
 			$("#action").attr("value","activeall");
-			document.frmListing.action='act_product.php';
+			document.frmListing.action='act_product_range.php';
 			document.frmListing.submit();
 		}
 	}else{
@@ -239,7 +239,7 @@ function Deactive_CheckBox(){
 	if(numberOfChecked>=1){
 		if(confirm("Are you sure  want to Deactivate Selected Record ?.")){
 			$("#action").attr("value","deactiveall");
-			document.frmListing.action='act_product.php';
+			document.frmListing.action='act_product_range.php';
 			document.frmListing.submit();
 		}
 	}else{

@@ -8,11 +8,12 @@ $department_query = (isset($POST['department']) && $POST['department'] != '') ? 
 
 $experience_query = (isset($POST['experience']) && $POST['experience'] != '')  ?  'to_experience <= '.$POST['experience'].' and' : '';
 
-$result	= $objTypes->fetchAll("SELECT * FROM tbl_careers WHERE  $location_query  $department_query $job_title_query $experience_query  is_delete = 1 and is_active = 1");
+$result	= $objTypes->fetchAll("SELECT * FROM tbl_careers WHERE  $location_query  $department_query $job_title_query $experience_query  is_delete = 1 and is_active = 1 order by job_code");
 
 $html = ''; 
 if(sizeof($result) > 0){
-	$html .='<div class="opening_table_con">
+	$html .='<div class="error_data" style="color:red;"></div>
+				<div class="opening_table_con">
 					<div class="opening_details">
 					  <ul>
 						<li class="th">
@@ -20,7 +21,7 @@ if(sizeof($result) > 0){
 						  <span>Job Title</span>
 						  <span>Function</span>
 						  <span>Education</span>
-						  <span>Job Code</span>
+						  <span>Experience</span>
 						  <span>Date</span>
 						</li>
 					  </ul>
@@ -38,11 +39,11 @@ if(sizeof($result) > 0){
 			        <br> TO
 			        <br>'.date('d/m/Y',strtotime($res['to_date'])).'</span>
 					
-			      <span><a href="'.base_url.'career-form-'.$res['id'].'" class="commanBtn">Apply Now</a></span>
+			      <span><a href="'.base_url.'career-apply-now-'.$res['id'].'" class="commanBtn">Apply Now</a></span>
 			    <span>
 					<div class="api_links">
 						<a href="javascript:;" class="linkdinlog" id="'.$res['id'].'" >Apply With</a>
-						<a href="'.base_url.'career-details/'.$res['id'].'">Read More</a>
+						<a href="'.base_url.'job-details/'.$res['id'].'">Read More</a>
 					  </div>
 					</span>
 						</li>

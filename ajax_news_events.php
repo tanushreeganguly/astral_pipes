@@ -8,10 +8,9 @@ $data = $objTypes->fetchAll($sql);
 if(is_array($data)) { ?>
 	<?php foreach($data as $val){ ?>
 	<li>
-		<a href="#">
 		<div class="eventmainimg"><img src="<?=base_url?>uploads/event_images/<?php echo $val['image'];?>" alt="<?=$val['title']?>"></div>
 			<div class="eventinfosectionH">
-			<div class="event-Title"><?php echo $val['title'];?></div>
+			<div class="event-Title"><?=stripslashes($val['title'])?></div>
 			  <div class="dateH"><?php echo date("d", strtotime($val['from_date']));?>-<?php echo date("d M Y", strtotime($val['to_date']));?>
 			  </div>
 			  <div class="eventlocMap">
@@ -19,13 +18,12 @@ if(is_array($data)) { ?>
 			  </div>
 			  <div class="eventventueH">VENUE</div>    
 				<div class="locationeventDetails">
-					<p><?php echo $val['address'];?></p>
+					<p><?=stripslashes($val['address'])?></p>
 				</div>
 				<div class="parainfolast">
-				  <p><?php echo stripslashes($val['short_description']);?></p>
+				  <p><?=stripslashes($val['short_description'])?></p>
 				</div>
 			</div> 
-		</a>
 	</li>
 	<?php } ?>
 <?php } ?>

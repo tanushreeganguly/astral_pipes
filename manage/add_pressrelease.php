@@ -45,11 +45,6 @@ $TypeArray	= $objTypes->fetchRow("SELECT * FROM tbl_pressrelease WHERE id = :id"
                 <label for="exampleInputEmail1">Title<?=MANDATORY?></label>
                 <input type="text" class="form-control " id="title" name="title" value="<?=stripslashes($TypeArray['title'])?>" placeholder="Title" style="width:40%;">
               </div>
-	             
-              <!--div class="form-group">
-                <label for="exampleInputEmail1">Short Description</label>
-                <textarea class="form-control" placeholder="Short Description..." name="short_description" id="short_description" rows="3" style="width:40%;"><?=($TypeArray['short_description'])?></textarea>
-              </div-->
 			  
 			  <div class="form-group">
                 <label for="exampleInputEmail1">Description</label>
@@ -71,11 +66,11 @@ $TypeArray	= $objTypes->fetchRow("SELECT * FROM tbl_pressrelease WHERE id = :id"
                 </div>
               </div>
              	<div class="form-group" id="Imagelink">
-                <label for="exampleInputEmail1">Image<?=MANDATORY?></label>
+                <label for="exampleInputEmail1">Image</label>
                 <input type="file" class="form-control " id="image" name="image" value="" placeholder=" Testimonial Image" style="width:40%;" onchange="return Checkfile()">
                 <div class="alert alert-danger alert-dismissible" style="width:40%;margin-top:10px;">[Note:- File Size : 440X295  , MAX File Upload Size : 3MB]</div>
                 <?php if($TypeArray['thumbnail']){ ?>
-                <a href="#" id='existing_image'><img src="../uploads/press_images/<?=stripslashes($TypeArray['thumbnail'])?>"  onerror="this.style.display='none'" height="80" width="100" onclick='window.open("../uploads/testimonial_images/<?=stripslashes($TypeArray['thumbnail'])?>","","width=600,height=600,scrollbars=Yes,resizable=yes")' /></a>
+                <a href="#" id='existing_image'><img src="../uploads/press_images/<?=stripslashes($TypeArray['thumbnail'])?>"  onerror="this.style.display='none'" height="80" width="100" onclick='window.open("../uploads/press_images/<?=stripslashes($TypeArray['thumbnail'])?>","","width=600,height=600,scrollbars=Yes,resizable=yes")' /></a>
 				<?php } ?>
               </div>					
               <div class="form-group">
@@ -140,11 +135,11 @@ else{
 function validateForm(){
 	if($("input#title").val()==""){
 		$(".errorDiv").show().fadeOut(4000);
-		$('#errormessage').text("Category Title is Mandatory");
+		$('#errormessage').text("Title is Mandatory");
 		$("input#title").focus();
 		return false;
 	}
-	if($("input#short_description").val()==""){
+	/*if($("input#short_description").val()==""){
 		$(".errorDiv").show().fadeOut(4000);
 		$('#errormessage').text("Short description is Mandatory");
 		$("input#short_description").focus();
@@ -155,7 +150,7 @@ function validateForm(){
 		$('#errormessage').text("Link is Mandatory");
 		$("input#link").focus();
 		return false;
-	}
+	}*/
 	if($("input#release_date").val()==""){
 		$(".errorDiv").show().fadeOut(4000);
 		$('#errormessage').text("Release date is Mandatory");

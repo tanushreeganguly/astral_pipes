@@ -1,7 +1,21 @@
-$(document).ready(function(){
+$(document).ready(function(){	
 	var getUrl = window.location;
 	var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 			/*sign up newsletter*/
+			$('#signup_email').keypress(function(event) {				
+			  var email = $("input#signup_email").val();
+			  $('#errormessage').attr('style', 'color: rgb(255, 0, 0)');
+			  var keycode = event.which;
+				if(keycode == '13') {
+				if(email==""){
+					event.preventDefault();
+					$(".errorDiv").show().fadeOut(4000);
+					$('#errormessage').text("Please enter email id");
+					$("input#signup_email").focus();
+				}
+			}
+		 });
+		 
 		  $('.signUp_btn').on('click',function(){ 
 				var email = $("input#signup_email").val();
 					$('#errormessage').attr('style', 'color: rgb(255, 0, 0)');
@@ -24,6 +38,8 @@ $(document).ready(function(){
 							data: form_data,
 							url: baseUrl+'/newsletter_signup.php',
 							success:function(response){
+								console.log(response);
+								$("#thankyou").attr('style', 'text-align:center');
 								$("#thankyou").attr('style', 'color: rgb(0,128,0)');
 								document.getElementById('thankyou').innerHTML=response;
 								$("#thankyou").show().fadeOut(5000);
@@ -34,6 +50,7 @@ $(document).ready(function(){
 			});
 			/*search box*/
 		  $('.search_txtBox').keypress(function(event) {
+			  var keyword = $("#search_data").val();
 			  var keycode = event.which;
 				if(keycode == '13') {
 				var searchbox=$(".search_txtBox").val();

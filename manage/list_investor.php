@@ -6,14 +6,19 @@ $POST		= $objTypes->validateUserInput($_POST);
 $title	    =  ($POST['title']<>'') ? $POST['title'] : '' ;
 $condition	= " is_delete='1' " ;
 $where      = array(":is_delete" => '1');
-if($title){
-	$where[':title'] = '%'.$title.'%';
+
+$investor	    =  ($POST['investor']<>'') ? $POST['investor'] : '' ;
+
+if($POST['investor']){
+	$where =  " AND investor_id = ".$POST['investor'];
 }
+
 if($title){
-	$select     = $objTypes->select("tbl_investor_details", "*", "is_delete = :is_delete AND title LIKE :title", $where, "title ASC");
-}
-else{
-	$select     = $objTypes->select("tbl_investor_details", "*", "is_delete = :is_delete", $where, "title ASC");
+	$select     = $objTypes->fetchAll("select * from tbl_investor_details where is_delete = 1 AND title LIKE   '%".$title."%' order by title ASC");
+}else if($investor){ 
+	$select     = $objTypes->fetchAll("select * from tbl_investor_details where is_delete = 1 $where order by title ASC");
+}else{
+	$select     = $objTypes->fetchAll("select * from tbl_investor_details where is_delete = 1 order by title ASC");
 }
 
 #==== PAGINATION
@@ -28,11 +33,26 @@ $from		= $pgNo * ADMIN_COUNT - ADMIN_COUNT;
 $to 		= $from + ADMIN_COUNT;
 $limit		= "$from,".ADMIN_COUNT;
 $order		= 'title ASC';
-if($title){
-    $res_arr = $objTypes->select("tbl_investor_details", "*", "is_delete = :is_delete AND title LIKE :title", $where, "title ASC", $limit);
+
+if($POST['setpriority'] == 'Sort Order'){  
+	for($i=0;$i<$total;$i++){   
+		if(($POST["sortorder".$i]>=0)&&($POST['sortorder_id'.$i]>0)){
+			$params = array('sortorder' => $POST["sortorder".$i]); 
+			$where  = array(':id' => $POST['sortorder_id'.$i]);
+			$update = $objTypes->update("tbl_investor_details", $params, "id = :id", $where);	
+		}
+	} 
+	header("location:list_investor.php?sysmsg=1001");
+	exit();
 }
-else{
-    $res_arr = $objTypes->select("tbl_investor_details", "*", "is_delete = :is_delete", $where, "title ASC", $limit);
+
+
+if($title){
+    $res_arr = $objTypes->fetchAll("select * from tbl_investor_details where is_delete = 1 AND title LIKE '%".$title."%'  order by title limit $limit");
+}else if($investor){
+	$res_arr     = $objTypes->fetchAll("select * from tbl_investor_details where is_delete = 1 $where order by title ASC limit $limit");
+}else{
+    $res_arr = $objTypes->fetchAll("select * from tbl_investor_details where is_delete = 1 order by title ASC limit $limit");
 }
 ?>
 <!-- Content Wrapper. Contains page content -->
@@ -64,14 +84,39 @@ else{
             <table id="example2" class="table table-bordered table-hover" >
               <thead>
 				  <tr>
-					<td colspan="3">
-					 <div class="input-group">
-					  <input type="text" name="title" placeholder="Title..." class="form-control" value="<?=$title?>">
-						  <span class="input-group-btn">
-							<button type="submit" class="btn btn-success btn-flat">Search</button>
-						  </span>
-					</div>
-					</td>
+                <td colspan="3">
+                 <div class="input-group">
+                  <input type="text" name="title" placeholder="Title..." class="form-control" value="<?=$title?>">                      
+                </div>
+                </td>       
+				<td colspan="6">
+                <div class="input-group">
+                <select name="investor" id="investor" class="form-control" >
+                	<option value="">Investor Category</option>
+                      <?php
+						$params     = array(":is_active" => '1', ":is_delete" => '1');
+						$ProdArray	= $objTypes->fetchAll("SELECT * FROM tbl_investor_category WHERE is_active = :is_active AND is_delete = :is_delete", $params);
+						if(sizeof($ProdArray) > 0){
+							foreach($ProdArray as $prod_v){
+								if($prod_v['id'] == $investor){
+									$selected = 'selected';
+								}
+								else{
+									$selected = '';
+								}
+								?>
+								<option value="<?php echo $prod_v['id'] ?>" <?=$selected?>><?php echo $prod_v['title']; ?></option>
+								<?php
+							}
+						}
+					?>
+                      
+                </select> 
+				  <span class="input-group-btn">
+					<button type="submit" class="btn btn-success btn-flat">Search</button>
+				  </span>
+                </div>
+                </td>
 				 </tr>
 				 <tr>
                   <th width="1%"><input type="checkbox" id="selectall"/></th>
@@ -79,6 +124,7 @@ else{
                   <th width="30%"> Title</th>
 				  <th width="20%"> Boucher</th>
 				  <th width="20">Category</th>
+				   <th width="5%"><input type="submit" name="setpriority" id="setpriority" class="btn btn-block btn-danger btn-sm" value="Sort Order"></th>
                   <th width="10%">Status</th>
                   <th width="12%">Action</th>
                 </tr>
@@ -102,10 +148,14 @@ else{
 					 $app_arr	= $objTypes->fetchAll("SELECT title, id FROM tbl_investor_category WHERE is_delete='1' AND is_active='1' AND id=".$val['investor_id']);
 				  ?>
 				   <td><?=stripslashes($app_arr[0]['title'])?></td>
-				  
+				  <td align="center">                  
+					<input type="text" id="sortorder<?php echo $key; ?>" name="sortorder<?php echo $key; ?>"  value="<?php echo $val['sortorder']; ?>" onkeypress="return validateNumbersOnly(event)"  style="width:30px; text-align:center;"/>
+					<input type="hidden" id="sortorder_id<?php echo $key; ?>" name="sortorder_id<?php echo $key; ?>"  value="<?php echo $val['id']; ?>"  />                               
+				  </td>
                   <td><a href="act_investor.php?id=<?=$val['id']?>&status=<?=$val['is_active']?>&pgNo=<?=base64_encode($pgNo)?>">
                     <?=($val['is_active'] == "1") ? "<span class='label label-success'>Active</span>":"<span class='label label-danger'>Inactive</span>" ?>
                     </a> </td>
+					
                   <td>
                   <a href="add_investor.php?id=<?=$val['id']?>&pgNo=<?=base64_encode($pgNo)?>"><i class="fa  fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
                   <a href="act_investor.php?id=<?=$val['id']?>&pgNo=<?=base64_encode($pgNo)?>&action=delete" onclick="return window.confirm('Do you want to delete this record?')"><i class="fa  fa-trash"></i></a>

@@ -14,9 +14,9 @@ function getCoordinates($address){
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
-  <title>Astral Pipes</title>
-  <meta name="description" content="" />    
-  <meta name="keywords" content="" />
+  <title>Careers at Astral Poly Technik Ltd</title>
+  <meta name="description" content="Explore the career at Astral Poly Technik Ltd by emailing the detailed resume to Careers@astralcpvc.com" />    
+  <meta name="keywords" content="astral poly technik careers, astral pipes careers" />
   <link href="<?=base_url?>assets/images/favicon.ico" rel="shortcut icon" type="" />
   <link href="<?=base_url?>assets/css/main.css" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -84,12 +84,12 @@ function getCoordinates($address){
 		</script>
 </head>
 <body>
-<?php include_once('include/othercode.php'); ?>
+<?php //include_once('include/othercode.php'); ?>
     <div id="wrapper">
      <?php include_once('include/header.php'); ?>	 
 		<section id="breadcrumbs">
 		  <div class="container">
-			<a href="<?=base_url?>">Home</a> Career
+			<a href="<?=base_url?>">Home</a> Careers
 		  </div>
 		</section>
      <section id="siteInner">
@@ -102,7 +102,7 @@ function getCoordinates($address){
         </div>
         <div class="careerCon">
           <p>Didn't the job you were looking for?
-            <a href="javascript:;">Submit Resume</a>
+            <a href="<?=base_url?>addresume">Submit Resume</a>
           </p>
           <div class="cr_block">
             <div class="jobsearcH"><h3>Job Search</h3></div>
@@ -172,7 +172,7 @@ function getCoordinates($address){
             </div>
           </div>
 		  
-			 <div  id="loading" style="display:none;" >
+			 <div  id="loading" style="display:none;text-align:center;" >
 				<img src="<?=base_url?>assets/images/loading.gif" alt="loading">
 			 </div>
 		  
@@ -196,7 +196,7 @@ function getCoordinates($address){
 						  <span>Job Title</span>
 						  <span>Function</span>
 						  <span>Education</span>
-						  <span>Job Code</span>
+						  <span>Experience</span>
 						  <span>Date</span>
 						</li>
 					  </ul>
@@ -209,7 +209,7 @@ function getCoordinates($address){
 						  <span><?=$res['job_code']?></span>
 						   <div class="bgimg"><img src="assets/images/arrow-ta.jpg"></div>
 						  <span><?=$res['title']?>
-							<div class="loc">Mumbai</div>
+							<div class="loc"><?=$res['location']?></div>
 						  </span>
 						  <span><?=$res['department']?></span>
 						  <span><?=$res['education']?></span>
@@ -218,12 +218,12 @@ function getCoordinates($address){
 							<br> TO
 							<br><?=date('d/m/Y',strtotime($res['to_date']));?></span>
 						  <span>
-							<a href="javascript:;" class="commanBtn">Apply Now</a>
+							<a href="<?=base_url?>career-apply-now-<?=$res['id']?>" class="commanBtn">Apply Now</a>
 						  </span>
 						   <span>
 							  <div class="api_links">
 								<a href="javascript:;" class="linkdinlog" id="<?php echo $res['id']; ?>" >Apply With</a>
-								<a href="<?=base_url?>career-details/<?=$res['id']?>">Read More</a>
+								<a href="<?=base_url?>job-details/<?=$res['id']?>">Read More</a>
 							  </div>
 							</span>
 							</li>
@@ -234,8 +234,10 @@ function getCoordinates($address){
 			  </div>
 			  <?php } ?>
       </div>
-    </section>
-    <?php include_once('include/footer.php'); ?>
+    
+	</div>
+	</section>	
+  <?php include_once 'include/footer.php'; ?>
   </div>
   <!--JS Files-->
   <?php include_once('include/js.php');?>

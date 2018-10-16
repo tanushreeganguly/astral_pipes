@@ -44,8 +44,33 @@ $res_arr	= $objTypes->fetchRow("SELECT * FROM tbl_applications WHERE id = :id", 
               </div>
 			  <div class="form-group">
                 <label for="exampleInputEmail1">Short description</label>
-                <textarea class="form-control" placeholder="Short Description" name="short_description" id="short_description" rows="3" style="width:40%;"><?=($res_arr['short_description'])?></textarea>
+                <textarea class="form-control" placeholder="Short Description" name="short_description" id="editor1"  rows="3" style="width:40%;"><?=($res_arr['short_description'])?></textarea>
               </div> 
+              
+              <div class="form-group">
+                <label for="exampleInputEmail1">Image For Category</label>
+                <input type="file" class="form-control " id="image" name="image" value="" placeholder="Category Image" style="width:40%;" onchange="return Checkfile()">
+                <div class="alert alert-danger alert-dismissible" style="width:40%;margin-top:10px;">[Note:- Extension : JPG, JPEG, BMP, GIF, PNG <br />MAX File Upload Size : 3MB]</div>
+                <?php if($res_arr['image']){ ?>
+                <a href="#" id='existing_image'><img src="../uploads/astral_defines_images/<?=stripslashes($res_arr['image'])?>"  onerror="this.style.display='none'" height="80" width="100" onclick='window.open("../uploads/astral_defines_images/<?=stripslashes($res_arr['image'])?>","","width=600,height=600,scrollbars=Yes,resizable=yes")' /></a>
+				<?php } ?>
+              </div>
+              
+              
+              
+			  
+			  <div class="form-group">
+                <label for="exampleInputEmail1">Meta Title</label>
+                <input type="text" class="form-control " id="meta_title" name="meta_title" value="<?=stripslashes($res_arr['meta_title'])?>" placeholder="Meta Title" style="width:40%;">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Meta Keywords</label>
+                <input type="text" class="form-control " id="meta_keywords" name="meta_keywords" value="<?=stripslashes($res_arr['meta_keywords'])?>" placeholder="Meta Keywords" style="width:40%;">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Meta Description</label>
+                <textarea class="form-control" rows="3" name="meta_description" id="meta_description" placeholder="Meta Description ..." style="width:40%;"><?=stripslashes($res_arr['meta_description'])?></textarea>
+              </div>
              
               
             </div>
@@ -76,6 +101,9 @@ $res_arr	= $objTypes->fetchRow("SELECT * FROM tbl_applications WHERE id = :id", 
 <!-- AdminLTE App -->
 <script src="<?=base_url?>dist/js/app.min.js" type="text/javascript"></script>
 <script src="<?=base_url?>ckeditor/ckeditor.js"></script>
+
+<script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+
 </body>
 </html>
 <script type="text/javascript" language="javascript">

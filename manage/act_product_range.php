@@ -2,17 +2,23 @@
 #=== Includes
 require_once("../config/config.php");
 require_once("verify_logins.php");
+
+error_reporting(E_ALL | E_STRICT);
+ini_set('display_errors',1);
+
 #==== Validations For Security
 $POST		= $objTypes->validateUserInput($_POST);
 echo "idd : ". $id 		= isset($POST['id']) ? intval($POST['id']) : intval($_REQUEST['id']) ;
 $ip			= $_SERVER['REMOTE_ADDR'];
 $agent		= addslashes($_SERVER['HTTP_USER_AGENT']);
 #==== ADD - UPDATE - INSERT
+set_time_limit(0);
+ini_set('max_execution_time', 3000);
 if(($POST['SAVE']=="SAVE")){
     $pgNo 	= intval(base64_decode($_REQUEST['pgNo']));
 	$params = array(
 		'product_name'	=> $POST['title'],
-        'description'	=>($_POST['description']),		
+       'description'	=>($_POST['description']),		
 		'product_id'   	=>($_POST['product_id']),			
 		'product_cat_id'=>($_POST['product_cat_id']),
 		'product_subcat_name'	=>($_POST['product_subcat_name']),
@@ -20,7 +26,7 @@ if(($POST['SAVE']=="SAVE")){
         'agent'         => $agent,
         'added_by'      => $_SESSION['SessAdminName']
 	);
-	print_r($params);
+	//print_r($params);
     if($id > 0){
 		$update_params = array(
 	        'updated_date'		=> date("Y-m-d H:i:s"),
@@ -37,20 +43,23 @@ if(($POST['SAVE']=="SAVE")){
 	}
 	else{
 		$insert = $objTypes->insert("tbl_product_range", $params);
+		echo 'insert done';
 		if($insert){
 			$insert_id = $objTypes->lastInsertId();
 		}
 	}
-	if($insert_id > 0){
-		print_r($_FILES);		
-		if(isset($_FILES['image']['name']) && $_FILES['image']['name'] != ""){
-			$validatefiles 	= array("jpg", "bmp", "jpeg", "gif","JPG", "BMP", "JPEG", "GIF");
-			$filetype 		= array('image/gif', 'image/jpeg', 'image/JPEG', 'image/GIF', 'image/bmp', 'image/BMP');
+	if($insert_id > 0){	
+		if(isset($_FILES['image']['name']) && $_FILES['image']['name'] != ""){ //print_r($_FILES); exit; 
+			$validatefiles 	= array("jpg", "bmp", "jpeg", "gif","JPG", "BMP", "JPEG", "GIF","PNG","png");
+			$filetype 		= array('image/gif', 'image/PNG','image/png','image/jpeg', 'image/JPEG', 'image/GIF', 'image/bmp', 'image/BMP');
 			$ext 	  		= pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
             $ext 	  		= strtolower($ext);
 			$filename 		= basename($_FILES['image']['name'], $ext);
             //$filename 		= time().'.'.$ext;
-			$filename		=	strtolower($_FILES['image']['name']).'.'.$ext;
+			//$filename		=	strtolower($_FILES['image']['name']).'.'.$ext;
+			//str_replace(' ', '_', $name);
+			$filename		=	strtolower($_FILES['image']['name']);
+			$filename = str_replace(' ', '_', $filename); 
 			if($_FILES['image']['size'] > 3097152){
 				header("location:add_product_range.php?sysmsg=16&id=".$insert_id);
                 exit();
@@ -59,10 +68,10 @@ if(($POST['SAVE']=="SAVE")){
                 header("location:add_product_range.php?sysmsg=11&id=".$insert_id);
                 exit();
             }
-			if(in_array(strtolower($_FILES['image']['type']), $filetype) == false ){
+			/*if(in_array(strtolower($_FILES['image']['type']), $filetype) == false ){
                 header("location:add_product_range.php?sysmsg=11&id=".$insert_id);
                 exit();
-            }
+            }*/
 			$where      = array(':id' => $insert_id);
 			$imagename	= $objTypes->fetchRow("SELECT image, thumbnail FROM tbl_product_range WHERE id = :id", $where);
 			unlink("../uploads/product_range_images/".str_replace('main_', '', $imagename['image']));		

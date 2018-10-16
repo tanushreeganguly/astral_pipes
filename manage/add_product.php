@@ -48,7 +48,7 @@ if($id!=0){
               </div>
 			  
 			  <div class="form-group">
-				<label for="exampleInputEmail1">Logo<?=MANDATORY?></label>
+				<label for="exampleInputEmail1">Logo</label>
 					<input type="file" class="form-control " id="logo" name="logo" value="" placeholder="Logo" style="width:40%;" onchange="return Checkfile3()">
 					<div class="alert alert-danger alert-dismissible" style="width:40%;margin-top:10px;">[Note:- File Size : 100 x 100  , MAX File Upload Size : 2MB]</div>
 					<?php if($res_arr['logo']){ ?>
@@ -56,9 +56,18 @@ if($id!=0){
 						<?php } ?>
 				  </div>
 				  
+				  <div class="form-group">
+				<label for="exampleInputEmail1">Brand Logo</label>
+					<input type="file" class="form-control " id="brand_logo" name="brand_logo" value="" placeholder="Brand Logo" style="width:40%;" onchange="return Checkfile1()">
+					<div class="alert alert-danger alert-dismissible" style="width:40%;margin-top:10px;">[Note:- File Size : 100 x 100  , MAX File Upload Size : 2MB]</div>
+					<?php if($res_arr['brand_logo']){ ?>
+					<a href="#" id='existing_image'><img src="../uploads/product_images/brand_logo/<?=stripslashes($res_arr['brand_logo'])?>"  onerror="this.style.display='none'" width="100" onclick='window.open("../uploads/product_images/brand_logo/<?=stripslashes($res_arr['brand_logo'])?>","","width=600,height=600,scrollbars=Yes,resizable=yes")' /></a>
+						<?php } ?>
+				  </div>
+				  
 			 <div class="form-group">
 			  <label for="exampleInputEmail1">Application<?=MANDATORY?></label>
-			  <select class="form-control" name="app_id" id="app_id" style="width: 40%" required>
+			  <select class="form-control"  multiple="multiple" name="app_id[]" id="app_id" style="width: 40%" >
 				  <option value="">Select Application</option>
 				  <?php
                       $app_arr	= $objTypes->fetchAll("SELECT title, id FROM tbl_applications WHERE is_delete='1' AND is_active='1' ");
@@ -78,21 +87,30 @@ if($id!=0){
 						?>
 			  </select>
              </div>
+			 <div class="form-group">
+                <label for="exampleInputEmail1">Shortcode</label>
+                <input type="text" class="form-control " id="short_code" name="short_code" value="<?=stripslashes($res_arr['short_code'])?>" placeholder="short code" style="width:40%;">
+              </div>
              <div class="form-group">
                 <label for="exampleInputEmail1">Short Description</label>
                 <textarea class="form-control" placeholder="Short Description..." name="short_description" id="editor1" rows="3" ><?=stripslashes($res_arr['short_description'])?></textarea>
               </div>
+			  
+			   <div class="form-group">
+                <label for="exampleInputEmail1">Description</label>
+                <textarea class="form-control" placeholder=" Description..." name="description" id="editor2" rows="3" ><?=stripslashes($res_arr['description'])?></textarea>
+              </div>
               
               <div class="form-group">
-				<label for="exampleInputEmail1">Desktop Image<?=MANDATORY?></label>
-					<input type="file" class="form-control " id="desk_image" name="desk_image" value="" placeholder="Desktop Banner Image" style="width:40%;" onchange="return Checkfile()">
+				<label for="exampleInputEmail1"> Image</label>
+					<input type="file" class="form-control " id="desk_image" name="desk_image" value="" placeholder="  Image" style="width:40%;" onchange="return Checkfile()">
 					<div class="alert alert-danger alert-dismissible" style="width:40%;margin-top:10px;">[Note:- File Size : 1920 x 695  , MAX File Upload Size : 3MB]</div>
 					<?php if($res_arr['desk_image']){ ?>
 					<a href="#" id='existing_image'><img src="../uploads/product_images/large/<?=stripslashes($res_arr['desk_image'])?>"  onerror="this.style.display='none'" width="100" onclick='window.open("../uploads/product_images/large/<?=stripslashes($res_arr['desk_image'])?>","","width=600,height=600,scrollbars=Yes,resizable=yes")' /></a>
 						<?php } ?>
 				  </div>
-				  <div class="form-group">
-						<label for="exampleInputEmail1">Tab Image<?=MANDATORY?></label>
+				  <!--div class="form-group">
+						<label for="exampleInputEmail1">Tab Image</label>
 						<input type="file" class="form-control " id="tab_image" name="tab_image" value="" placeholder="Tab Banner Image" style="width:40%;" onchange="return Checkfile1()">
 						<div class="alert alert-danger alert-dismissible" style="width:40%;margin-top:10px;">[Note:- File Size : 1000 x 362  , MAX File Upload Size : 3MB]</div>
 						<?php if($res_arr['tab_image']){ ?>
@@ -100,13 +118,13 @@ if($id!=0){
 						<?php } ?>
 				  </div>
 				   <div class="form-group">
-						<label for="exampleInputEmail1">Mobile Image<?=MANDATORY?></label>
+						<label for="exampleInputEmail1">Mobile Image</label>
 						<input type="file" class="form-control " id="mobile_image" name="mobile_image" value="" placeholder="Mobile Banner Image" style="width:40%;" onchange="return Checkfile2()">
 						<div class="alert alert-danger alert-dismissible" style="width:40%;margin-top:10px;">[Note:- File Size : 480 x 174  , MAX File Upload Size : 3MB]</div>
 						<?php if($res_arr['mobile_image']){ ?>
 						<a href="#" id='existing_mobile_image'><img src="../uploads/product_images/small/<?=stripslashes($res_arr['mobile_image'])?>"  onerror="this.style.display='none'" width="100" onclick='window.open("../uploads/product_images/small/<?=stripslashes($res_arr['mobile_image'])?>","","width=600,height=600,scrollbars=Yes,resizable=yes")' /></a>
 						<?php } ?>
-				  </div>
+				  </div>-->
                            
                <div class="form-group">
                 <label for="exampleInputEmail1">Broucher (PDF only)</label>
@@ -116,18 +134,24 @@ if($id!=0){
                 <a href="../uploads/product_broucher/<?php echo $res_arr['broucher']; ?>" id='existing_image' target="_blank"><img src="../images/pdf-icon.jpg"  /></a>
 				<?php } ?>
 				
-               <div class="form-group">
+               <!--div class="form-group">
                 <label for="exampleInputEmail1">About</label>
                 <textarea class="form-control" placeholder="About..." name="about" id="editor2" rows="2" style="width:30%;"><?=stripslashes($res_arr['about'])?></textarea>
-              </div>
+              </div>-->
               
-              <div class="form-group">
-                <label for="exampleInputEmail1">Technical details</label>
-                <textarea class="form-control" placeholder="Technical details..." name="technical_details" id="editor3" rows="3" style="width:40%;"><?=stripslashes($res_arr['technical_details'])?></textarea>
+               <div class="form-group">
+                <label for="exampleInputEmail1">Short Technical details</label>
+                <textarea class="form-control" placeholder="Short Technical details..." name="technical_details" id="editor3" rows="3" style="width:40%;"><?=stripslashes($res_arr['technical_details'])?></textarea>
               </div>
+			  
+			  <div class="form-group">
+                <label for="exampleInputEmail1">More Technical details</label>
+                <textarea class="form-control" placeholder="More Technical details..." name="long_technical_details" id="editor4" rows="3" style="width:40%;"><?=stripslashes($res_arr['long_technical_details'])?></textarea>
+              </div>	  
+			  
 			<div class="form-group">
-                <label for="exampleInputEmail1">Features & Benefits </label>
-                <textarea class="form-control" placeholder="Features & Benefits..." name="features_benefits" id="editor4" rows="3" style="width:40%;"><?=stripslashes($res_arr['features_benefits'])?></textarea>
+                <label for="exampleInputEmail1">Additional details </label>
+                <textarea class="form-control" placeholder="Additional details..." name="additional_details" id="editor5" rows="3" style="width:40%;"><?=stripslashes($res_arr['additional_details'])?></textarea>
 			</div>
               <div class="form-group">
                 <label for="exampleInputEmail1">Meta Title</label>
@@ -296,11 +320,13 @@ function Checkfile3(){
 }
 </script>
 <script>
-  $(function () {
+  $(function () {	  
+    CKEDITOR.config.allowedContent = true;
 	CKEDITOR.replace('editor1');
 	CKEDITOR.replace('editor2');
 	CKEDITOR.replace('editor3');
 	CKEDITOR.replace('editor4');
+	CKEDITOR.replace('editor5');
     //bootstrap WYSIHTML5 - text editor
     $(".textarea").wysihtml5();
   });

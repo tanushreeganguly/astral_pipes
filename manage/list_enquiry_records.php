@@ -3,16 +3,16 @@ require_once("left.php");
 
 #==== Validations For Security
 $POST		= $objTypes->validateUserInput($_POST);
-$inquiry_for	    = $POST['type_inquiry'];
+$name	    = $POST['name'];
 $condition	= " is_delete='1' " ;
 $where      = "";
 
-if($inquiry_for){
-	$where[':inquiry_for'] = '%'.$inquiry_for.'%';
+if($name){
+	$where[':name'] = '%'.$name.'%';
 }
 
-if($inquiry_for){
-	$select     = $objTypes->select("tbl_enquiry", "*", "inquiry_for LIKE :inquiry_for", $where, "inquiry_for ASC");
+if($name){
+	$select     = $objTypes->select("tbl_enquiry", "*", "name LIKE :name", $where, "name ASC");
 }
 else{
 	$select     = $objTypes->select("tbl_enquiry", "*", "", $where, "id DESC");
@@ -30,10 +30,10 @@ $from		= $pgNo * ADMIN_COUNT - ADMIN_COUNT;
 $to 		= $from + ADMIN_COUNT;
 
 $limit		= "$from,".ADMIN_COUNT;
-$order		= 'inquiry_for ASC';
+$order		= 'name ASC';
 
-if($inquiry_for){
-    $TypeArray = $objTypes->select("tbl_enquiry", "*", "inquiry_for LIKE :inquiry_for", $where, "id DESC", $limit);
+if($name){
+    $TypeArray = $objTypes->select("tbl_enquiry", "*", "name LIKE :name", $where, "id DESC", $limit);
 }
 else{
     $TypeArray = $objTypes->select("tbl_enquiry", "*", "", $where, "id DESC", $limit);
@@ -73,7 +73,7 @@ else{
                 
                 <div class="row">
                  <div class="form-group col-xs-3">
-                 <input type="text" name="type_inquiry" placeholder="Type..." class="form-control" value="<?=$inquiry_for?>">
+                 <input type="text" name="name" placeholder="Name..." class="form-control" value="<?=$name?>">
                   </div>
                 
                 
@@ -94,10 +94,8 @@ else{
                   <th width="5%">#</th>
                  <th width="15%">Name</th>
                   <th width="15%">Email</th>
-                  <th width="15%">Address</th>
                   <th width="10%">Mobile Number</th>
-                  <th width="10%">Zip Code Number</th>
-                  <th width="10%">City</th>
+                  <th width="10%">Location</th>
                   <th width="10%">inquiry_for</th>
 				  <th width="10%">Date</th>
 				   
@@ -115,12 +113,9 @@ else{
                   
                   <td><?=stripslashes($val['name'])?></td>
                   <td><?=stripslashes($val['email'])?></td>
-                  <td><?=stripslashes($val['address'])?></td>
                   <td><?=stripslashes($val['mobile'])?></td>
-                  <td><?=stripslashes($val['zip_code'])?></td>
-                   <td><?=stripslashes($val['city'])?></td>
-                  <td><?=stripslashes($val['inquiry_for'])?></td>
-				 
+                   <td><?=stripslashes($val['location'])?></td>
+                  <td><?=stripslashes($val['enquiry_type'])?></td>				 
 				  <td><?=stripslashes($val['insert_date'])?></td>
                 
                   <!--td>

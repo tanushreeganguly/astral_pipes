@@ -96,10 +96,8 @@ else{
                   <th width="5%">#</th>
                  <th width="15%">Name</th>
                   <th width="15%">Email</th>
-                  <th width="15%">Address</th>
                   <th width="10%">Mobile Number</th>
-                  <th width="10%">Product Name</th>
-                  <th width="10%">City</th>
+                  <th width="10%">Location</th>
                   <th width="10%">Type</th>
 				  <th width="10%">Date</th>
 				   
@@ -117,12 +115,8 @@ else{
                   
                   <td><?=stripslashes($val['name']).' '.stripslashes($val['last_name'])?></td>
                   <td><?=stripslashes($val['email'])?></td>
-                  <td><?=stripslashes($val['address'])?></td>
                   <td><?=stripslashes($val['mobile'])?></td>
-                  <td><?=stripslashes($val['product'])?></td>
-                   <td><?=stripslashes($val['city'])?></td>
-                  <td><?=stripslashes($val['contacttype'])?></td>
-				 
+                   <td><?=stripslashes($val['location'])?></td>				 
 				  <td><?=stripslashes($val['insert_date'])?></td>
                 
                   <!--td>

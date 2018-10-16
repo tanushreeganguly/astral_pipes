@@ -1,3 +1,4 @@
+Options -MultiViews
 RewriteEngine On
 RewriteBase /astral-pipes
 RewriteCond %{REQUEST_FILENAME} !-f
@@ -10,14 +11,64 @@ RewriteRule ^faq/$ /astral-pipes/faq.php [L]
 RewriteRule ^career$ /astral-pipes/career.php [L]
 RewriteRule ^career/$ /astral-pipes/career.php [L]
 
-RewriteRule ^career-details/([^/]*)/$ /astral-pipes/career-details.php?id=$1 [L]
-RewriteRule ^career-details/([^/]*)$ /astral-pipes/career-details.php?id=$1 [L]
+RewriteRule ^job-details/([^/]*)/$ /astral-pipes/job-details.php?id=$1 [L]
+RewriteRule ^job-details/([^/]*)$ /astral-pipes/job-details.php?id=$1 [L]
 
 RewriteRule ^clients$ /astral-pipes/clients.php [L]
 RewriteRule ^clients/$ /astral-pipes/clients.php [L]
 
+RewriteRule ^gallery$ /astral-pipes/gallery.php [L]
+RewriteRule ^gallery/$ /astral-pipes/gallery.php [L]
+
+RewriteRule ^gallery/([^/]*)$ /astral-pipes/gallery.php?type=$1  [L]
+
 RewriteRule ^news-events$ /astral-pipes/news-and-events.php [L]
 RewriteRule ^news-events/$ /astral-pipes/news-and-events.php [L]
 
+
 RewriteRule ^applications/([^/]*)-([^/]*)$  /astral-pipes/applications.php?title=$1&id=$2 [L]
 RewriteRule ^applications/([^/]*)-([^/]*)/$  /astral-pipes/applications.php?title=$1&id=$2 [L]
+
+RewriteRule ^application-details/([^/]*)-([^/]*)-([^/]*)$  /astral-pipes/application-details.php?app_title=$1&title=$2&id=$3 [L]
+RewriteRule ^application-details/([^/]*)-([^/]*)-([^/]*)/$  /astral-pipes/application-details.php?app_title=$1&title=$2&id=$3 [L]
+
+
+
+RewriteRule ^investor-relations$ /astral-pipes/investor-relations.php [L]
+RewriteRule ^investor-relations/$ /astral-pipes/investor-relations.php [L]
+
+RewriteRule ^press-release$ /astral-pipes/press-release.php [L]
+RewriteRule ^press-release/$ /astral-pipes/press-release.php [L]
+
+RewriteRule ^careers-landing$ /astral-pipes/careers-landing.php [L]
+RewriteRule ^careers-landing/$ /astral-pipes/careers-landing.php [L]
+
+RewriteRule ^contact-us$ /astral-pipes/contact-us.php [L]
+RewriteRule ^contact-us/$ /astral-pipes/contact-us.php [L]
+
+RewriteRule ^enquiry$ /astral-pipes/enquiry.php [L]
+RewriteRule ^enquiry/$ /astral-pipes/enquiry.php [L]
+
+RewriteRule ^about-us$ /astral-pipes/about-us.php [L]
+RewriteRule ^about-us/$ /astral-pipes/about-us.php [L]
+
+RewriteRule ^downloads$ /astral-pipes/downloads.php [L]
+RewriteRule ^downloads/$ /astral-pipes/downloads.php [L]
+
+RewriteRule ^career-apply-now-([^/]*)$ /astral-pipes/career-apply-now.php?id=$1  [L]
+
+RewriteRule ^addresume$ /astral-pipes/addresume.php [L]
+RewriteRule ^addresume/$ /astral-pipes/addresume.php [L]
+
+RewriteRule ^search$ /astral-pipes/data_search.php  [L]
+RewriteRule ^search/$ /astral-pipes/data_search.php [L]
+
+
+RewriteRule ^hauraton$ /astral-pipes/hauraton-landing.php  [L]
+RewriteRule ^hauraton/$ /astral-pipes/hauraton-landing.php [L]
+
+RewriteRule ^hauraton-product/([^/]*)-([^/]*)$ /astral-pipes/hauraton-product.php?title=$1&id=$2   [L]
+RewriteRule ^hauraton-product/([^/]*)-([^/]*)/$ /astral-pipes/hauraton-product.php?title=$1&id=$2  [L]
+
+RewriteRule ^hauraton/([^/]*)-([^/]*)$ /astral-pipes/hauraton-product-details.php?title=$1&id=$2   [L]
+RewriteRule ^hauraton/([^/]*)-([^/]*)/$ /astral-pipes/hauraton-product-details.php?title=$1&id=$2  [L]

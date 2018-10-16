@@ -138,6 +138,8 @@ function Checkfile1(){
 </script>
 <script>
   $(function () {
+    CKEDITOR.config.fillEmptyBlocks = false;	
+    //CKEDITOR.config.allowedContent = true;
     // Replace the <textarea id="editor1"> with a CKEditor
     // instance, using default configuration.
     CKEDITOR.replace('editor1', {

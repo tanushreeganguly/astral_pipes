@@ -15,6 +15,9 @@ if(($POST['SAVE']=="SAVE")){
 	$params = array(
 		'title'	            => $POST['title'],
 		'short_description'	=> $POST['short_description'],
+        'meta_title'        => $POST['meta_title'],
+		'meta_description'  => $POST['meta_description'],
+        'meta_keywords'     => $POST['meta_keywords'],
         'ip'                => $ip,
         'agent'             => $agent,
         'added_by'          => $_SESSION['SessAdminName']
@@ -36,21 +39,82 @@ if(($POST['SAVE']=="SAVE")){
 		}
     }
     else{
+		//print_r($params); 
         $insert = $objTypes->insert("tbl_applications", $params);
 		if($insert){
 			$insert_id = $objTypes->lastInsertId();
 		}
     }
 
-    if($insert_id > 0){
-        
-        header("location:list_applications.php?sysmsg=1000");
+
+
+
+	if($insert_id > 0){
+		$validatefiles 	= array("jpg", "bmp", "jpeg", "gif","JPG", "BMP", "JPEG", "GIF","png","PNG");
+		$filetype 		= array('image/gif', 'image/jpeg','image/JPG','image/jpg', 'image/JPEG', 'image/GIF', 'image/bmp', 'image/BMP','image/png','image/PNG');
+
+		
+		if(isset($_FILES['image']['name']) && $_FILES['image']['name'] != ""){
+			$ext 	  		= pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+            $ext 	  		= strtolower($ext);
+			$filename 		= basename($_FILES['image']['name'], $ext);
+            $filename 		= time().'.'.$ext;
+
+			if($_FILES['image']['size'] > 3097152){
+				header("location:add_applications.php?sysmsg=16&id=".$insert_id);
+                exit();
+            }
+
+            if(in_array($ext, $validatefiles) == false){
+                header("location:add_applications.php?sysmsg=11&id=".$insert_id);
+                exit();
+            }
+
+			if(in_array(strtolower($_FILES['image']['type']), $filetype) == false ){
+                header("location:add_applications.php?sysmsg=11&id=".$insert_id);
+                exit();
+            }
+
+			$where      = array(':id' => $insert_id);
+			$imagename	= $objTypes->fetchRow("SELECT image, thumbnail FROM tbl_applications WHERE id = :id", $where);
+			unlink("../uploads/astral_defines_images/".str_replace('main_', '', $imagename['image']));
+			unlink("../uploads/astral_defines_images/".$imagename['image']);
+			unlink("../uploads/astral_defines_images/".$imagename['thumbnail']);
+
+			if(move_uploaded_file($_FILES['image']['tmp_name'], "../uploads/astral_defines_images/".$filename)){
+				$path 		= "../uploads/astral_defines_images/".$filename;
+				$main_image = "../uploads/astral_defines_images/main_".$filename;
+				$main_width	= "361";
+				$main_height= "220";
+
+				$magicianObj = new imageLib($path);
+				$magicianObj->resizeImage($main_width, $main_height, $option = 2);
+				$magicianObj->saveImage($main_image, 100);
+
+				$thumb_image = "../uploads/astral_defines_images/thumb_".$filename;
+				$thumb_width = "361";
+				$thumb_height= "220";
+
+				$magicianObj2 = new imageLib($path);
+				$magicianObj2->resizeImage($thumb_width, $thumb_height, $option = 2);
+				$magicianObj2->saveImage($thumb_image, 100);
+
+				$img_params = array('image' => 'main_'.$filename, 'thumbnail' => 'thumb_'.$filename);
+				$update     = $objTypes->update("tbl_applications", $img_params, "id = :id", $where);
+			}
+			else{
+				header("location:add_applications.php?sysmsg=1003&id=".$insert_id);
+				exit();
+			}
+		}
+
+
+
+
+	}
+        header("location:list_applications.php?sysmsg=1000&pgNo=".$pgNo);
 		exit();
-    }
-    else{
-        header("location:add_applications.php?sysmsg=3");
-		exit();
-    }
+   
 }
 
 #==== STATUS UPDATION

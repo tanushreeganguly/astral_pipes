@@ -14,59 +14,35 @@ if($select && count($select) > 0){
 				<thead>
 					<tr>
 						<th>Name</th>
-						<th>Address</th>
 						<th>Country</th>
 						<th>State</th>
-						<th>City</th>
-						<th>Zip Code</th>
-						
-						<th>Mobile Number</th>
-						
-						<th>Email</th>
-						<th>DOB</th>
-						
+						<th>Location</th>						
+						<th>Mobile Number</th>						
+						<th>Email</th>						
 						<th>Inquiry For</th>
 						<th>Inquiry</th>
-						<th>Date</th>
-						
+						<th>Date</th>						
 					</tr>
 				</thead>
 				";
 	$i=1;
 	foreach($select  as $rows)
-	{
-			
-			
-			
-			//$select_state    = $objTypes->select("tbl_cities", "*", "state_id=:state_id", $where_state, "state_id DESC");
-			
+	{			
 			$data .= "<tr>
 						
 						<td>".$rows['name']."</td>
-						<td>".$rows['address']."</td>
 						<td>".$rows['country']."</td>";
 						
 							$data .= "<td>".$rows['state']."</td>
-							          <td>".$rows['city']."</td>";
+							          <td>".$rows['location']."</td>";
 						
-						$data .= "
-						
-						<td>".$rows['zip_code']."</td>
-						
-						<td>".$rows['mobile']."</td>
-						
-						<td>".$rows['email']."</td>
-						<td>".$rows['dob']."</td>
-										
-						
-						
-						<td>".$rows['inquiry_for']."</td>
-						<td>".$rows['inquiry_message']."</td>
-						<td>".$rows['insert_date']."</td>";
-						
+						$data .= "						
+						<td>".$rows['mobile']."</td>						
+						<td>".$rows['email']."</td>										
+						<td>".$rows['enquiry_type']."</td>
+						<td>".$rows['message']."</td>
+						<td>".$rows['insert_date']."</td>";						
 					$data .= "</tr>";
-		
-		
 	}
 	
 	$data 		.='</tbody></table>';	

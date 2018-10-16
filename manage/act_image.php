@@ -72,9 +72,9 @@ if(($POST['SAVE']=="SAVE"))
 					//print_r($imagename); exit; 
 					foreach($imagename as $new_img)
 					{
-					unlink("../uploads/astral_adhesive_image/small/".$new_img['image']);
-					unlink("../uploads/astral_adhesive_image/small/".$new_img['uploaded_image']);
-					unlink("../uploads/astral_adhesive_image/small/".$new_img['thumb_image']);
+					unlink("../uploads/astral_pipes_image/small/".$new_img['image']);
+					unlink("../uploads/astral_pipes_image/small/".$new_img['uploaded_image']);
+					unlink("../uploads/astral_pipes_image/small/".$new_img['thumb_image']);
 					}
 
 					$delete = $objTypes->delete('tbl_gallery', 'event_id = :event_id', $where);*/
@@ -101,16 +101,16 @@ if(($POST['SAVE']=="SAVE"))
 					}*/
 					$counter++;
 					$UploadOk = true;
-					if(move_uploaded_file($temp, "../uploads/astral_adhesive_image/small/".$filename)){
-						$path 		= "../uploads/astral_adhesive_image/small/".$filename;
-						$main_image = "../uploads/astral_adhesive_image/small/main_".$filename;
+					if(move_uploaded_file($temp, "../uploads/astral_pipes_image/small/".$filename)){
+						$path 		= "../uploads/astral_pipes_image/small/".$filename;
+						$main_image = "../uploads/astral_pipes_image/small/main_".$filename;
 						
 
 						$magicianObj = new imageLib($path);
 						//$magicianObj->resizeImage($main_width, $main_height);
 						$magicianObj->saveImage($main_image, 100);
 
-						$thumb_image = "../uploads/astral_adhesive_image/small/thumb_".$filename;
+						$thumb_image = "../uploads/astral_pipes_image/small/thumb_".$filename;
 						$thumb_width = "565";
 						$thumb_height= "416";
 
@@ -151,19 +151,19 @@ if(($POST['SAVE']=="SAVE"))
 
 			$where      = array(':id' => $insert_id);
 			$imagename	= $objTypes->fetchRow("SELECT image, thumbnail FROM tbl_adhesive WHERE id = :id", $where);
-			unlink("../uploads/astral_adhesive_image/small/".str_replace('main_', '', $imagename['image']));		
-			unlink("../uploads/astral_adhesive_image/small/".$imagename['image']);
-			unlink("../uploads/astral_adhesive_image/small/".$imagename['thumbnail']);
+			unlink("../uploads/astral_pipes_image/small/".str_replace('main_', '', $imagename['image']));		
+			unlink("../uploads/astral_pipes_image/small/".$imagename['image']);
+			unlink("../uploads/astral_pipes_image/small/".$imagename['thumbnail']);
 
-			if(move_uploaded_file($_FILES['image']['tmp_name'], "../uploads/astral_adhesive_image/small/".$filename)){
-				$path 		= "../uploads/astral_adhesive_image/small/".$filename;
-				$main_image = "../uploads/astral_adhesive_image/small/main_".$filename;
+			if(move_uploaded_file($_FILES['image']['tmp_name'], "../uploads/astral_pipes_image/small/".$filename)){
+				$path 		= "../uploads/astral_pipes_image/small/".$filename;
+				$main_image = "../uploads/astral_pipes_image/small/main_".$filename;
 				
 				$magicianObj = new imageLib($path);
 				
 				$magicianObj->saveImage($main_image, 100);
 
-				$thumb_image = "../uploads/astral_adhesive_image/small/thumb_".$filename;
+				$thumb_image = "../uploads/astral_pipes_image/small/thumb_".$filename;
 				$thumb_width = "280";
 				$thumb_height= "250";
 
@@ -177,7 +177,8 @@ if(($POST['SAVE']=="SAVE"))
 			
 		}*/
 		
-		if(isset($_FILES['image1']['name']) && $_FILES['image1']['name'] != ""){
+		if(isset($_FILES['image1']['name']) && $_FILES['image1']['name'] != "")
+		{
 			$validatefiles 	= array("jpg", "bmp", "jpeg", "gif","JPG", "BMP", "JPEG", "GIF");
 			$filetype 		= array('image/gif', 'image/jpeg', 'image/JPEG', 'image/GIF', 'image/bmp', 'image/BMP');
 			$ext 	  		= pathinfo($_FILES['image1']['name'], PATHINFO_EXTENSION);
@@ -202,14 +203,14 @@ if(($POST['SAVE']=="SAVE"))
 
 			$where      = array(':id' => $insert_id);
 			$imagename1	= $objTypes->fetchRow("SELECT image1, thumbnail1 FROM tbl_adhesive WHERE id = :id", $where);
-			unlink("../uploads/astral_adhesive_image/large/".str_replace('main_', '', $imagename['image1']));		
-			unlink("../uploads/astral_adhesive_image/large/".$imagename1['image1']);
-			unlink("../uploads/astral_adhesive_image/large/".$imagename1['thumbnail1']);
+			unlink("../uploads/astral_pipes_image/large/".str_replace('main_', '', $imagename['image1']));		
+			unlink("../uploads/astral_pipes_image/large/".$imagename1['image1']);
+			unlink("../uploads/astral_pipes_image/large/".$imagename1['thumbnail1']);
 
-			if(move_uploaded_file($_FILES['image1']['tmp_name'], "../uploads/astral_adhesive_image/large/".$filename1))
+			if(move_uploaded_file($_FILES['image1']['tmp_name'], "../uploads/astral_pipes_image/large/".$filename1))
 			{
-				$path1		= "../uploads/astral_adhesive_image/large/".$filename1;
-				$main_image11 = "../uploads/astral_adhesive_image/large/main_".$filename1;
+				$path1		= "../uploads/astral_pipes_image/large/".$filename1;
+				$main_image11 = "../uploads/astral_pipes_image/large/main_".$filename1;
 				$main_width11	= "355";
 				$main_height11= "200";
 
@@ -217,7 +218,7 @@ if(($POST['SAVE']=="SAVE"))
 				$magicianObj->resizeImage($main_width11, $main_height11, $option = 2);
 				$magicianObj->saveImage($main_image11, 100);
 
-				$thumb_image1 = "../uploads/astral_adhesive_image/large/thumb_".$filename1;
+				$thumb_image1 = "../uploads/astral_pipes_image/large/thumb_".$filename1;
 				$thumb_width1 = "565";
 				$thumb_height1= "416";
 
@@ -227,6 +228,11 @@ if(($POST['SAVE']=="SAVE"))
 
 				$img_params = array('image1' => 'main_'.$filename1, 'thumbnail1' => 'thumb_'.$filename1);
 				$update     = $objTypes->update("tbl_adhesive", $img_params, "id = :id", $where);
+			}
+			else 
+			{
+			
+				echo "not uplioaded"; exit;
 			}
 			header("location:list_image.php?sysmsg=1000&id=".$insert_id);
 			exit();
@@ -257,9 +263,9 @@ if(($_REQUEST['param']<>"") && ($_REQUEST['id'] <> "")){
 
     $sql     = "SELECT image, thumb_image FROM tbl_gallery WHERE id = :id";
     $image   = $objTypes->fetchRow($sql, $where);
-    unlink("../uploads/astral_adhesive_image/small/".str_replace('main_', '', $image['image']));
-	unlink("../uploads/astral_adhesive_image/small/".$image['image']);
-	unlink("../uploads/astral_adhesive_image/small/".$image['thumb_image']);
+    unlink("../uploads/astral_pipes_image/small/".str_replace('main_', '', $image['image']));
+	unlink("../uploads/astral_pipes_image/small/".$image['image']);
+	unlink("../uploads/astral_pipes_image/small/".$image['thumb_image']);
 
     $delete  = $objTypes->delete("tbl_gallery", "id = :id", $where);
     if($delete){

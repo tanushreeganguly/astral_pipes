@@ -102,13 +102,13 @@ if($title){
 				  <td><?=stripslashes($val['short_description'])?></td>
 				  <td><img width="100" height="100" src="../uploads/event_images/<?=$val['image']?>"</td>
                   
-                  <td><a href="act_pressrelease.php?id=<?=$val['id']?>&cat_type=<?=$cat_type?>&title=<?=$title?>&status=<?=$val['is_active']?>&pgNo=<?=base64_encode($pgNo)?>">
+                  <td><a href="act_event.php?id=<?=$val['id']?>&cat_type=<?=$cat_type?>&title=<?=$title?>&status=<?=$val['is_active']?>&pgNo=<?=base64_encode($pgNo)?>">
                     <?=($val['is_active'] == "1") ? "<span class='label label-success'>Active</span>":"<span class='label label-danger'>Inactive</span>" ?>
                     </a>
            		  </td>
                   <td>
                   <a href="add_event.php?id=<?=$val['id']?>&pgNo=<?=base64_encode($pgNo)?>"><i class="fa  fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                  <!--<a href="act_pressrelease.php?id=<?=$val['id']?>&pgNo=<?=base64_encode($pgNo)?>&cat_type=<?=$cat_type?>&title=<?=$title?>&action=delete" onclick="return window.confirm('Do you want to delete this record?')"><i class="fa  fa-trash"></i></a>-->
+                  <a href="act_pressrelease.php?id=<?=$val['id']?>&pgNo=<?=base64_encode($pgNo)?>&cat_type=<?=$cat_type?>&title=<?=$title?>&action=delete" onclick="return window.confirm('Do you want to delete this record?')"><i class="fa  fa-trash"></i></a>
                   </td>
                 </tr>
                 <?php } }  else { print "<tr><td colspan='9'> NO Records Found !!!</td></tr>";} ?>
@@ -240,7 +240,7 @@ function Delete_CheckBox()
 		if(confirm("Are you sure  want to Delete Selected Record ?."))
 		{
 			$("#action").attr("value","deleteall");
-			document.frmListing.action='act_pressrelease.php?action=deleteall';
+			document.frmListing.action='act_event.php?action=deleteall';
 			document.frmListing.submit();
 		}
 	}
@@ -259,7 +259,7 @@ function Active_CheckBox()
 		if(confirm("Are you sure  want to Activate Selected Record ?."))
 		{
 			$("#action").attr("value","activeall");
-			document.frmListing.action='act_pressrelease.php';
+			document.frmListing.action='act_event.php';
 			document.frmListing.submit();
 		}
 	}
@@ -279,7 +279,7 @@ function Deactive_CheckBox()
 		if(confirm("Are you sure  want to Deactivate Selected Record ?."))
 		{
 			$("#action").attr("value","deactiveall");
-			document.frmListing.action='act_pressrelease.php';
+			document.frmListing.action='act_event.php';
 			document.frmListing.submit();
 		}
 	}

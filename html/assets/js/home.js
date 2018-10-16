@@ -13,7 +13,7 @@ $(document).ready(function() {
     var winWT = $(window).innerWidth();
 
     var owl = $('#slider_holder').owlCarousel({
-        animateOut: 'fadeOut',
+        // animateOut: 'fadeOut',
         autoplay: true,
         loop: true,
         items: 1,
@@ -21,17 +21,30 @@ $(document).ready(function() {
         stagePadding: 0,
         smartSpeed: 1300,
         autoplayTimeout: 8000,
-        dots: false,
+        dots: true,
         navigation: false,
         mouseDrag: false,
-        pagination: false
-    });
+        pagination: false,
+		
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:1
+            },
+            1000:{dotsEach: 1,
+                items:1
+            }
+        }
+   
+   });
 
 
     function onSlideChange() {
-        TweenMax.set('.bannerDet .overlay', { width: 0 });
-        TweenMax.set('.bannerDet span', { opacity: 0, top: '60px' });
-        TweenMax.set('.knowMoreBtn', { opacity: 0, y: 10 });
+        // TweenMax.set('.bannerDet .overlay', { width: 0 });
+        // TweenMax.set('.bannerDet span', { opacity: 0, top: '60px' });
+        // TweenMax.set('.knowMoreBtn', { opacity: 0, y: 10 });
 
         TweenMax.killTweensOf('#slider_holder .owl-stage-outer img');
         setTimeout(function() {
@@ -173,8 +186,7 @@ $(document).ready(function() {
             }
         });
 
-
-    }  
+       }  
 
     var isBenchMarkAnimDone = false;
 
@@ -239,13 +251,13 @@ function setCubeRolloverEffect() {
                 }
             }
             if (e.type == 'mouseleave') {
-                var speed = 0.8;
+                /*var speed = 0.8;
                 TweenMax.killTweensOf(cube);
                 TweenMax.to(cube, speed, { rotationX: 0, y: 0, ease: Sine.easeInOut });
                 TweenMax.to(cube, speed, { z: 0, ease: Sine.easeIn });
                 if (data.rollOutFun) {
                     data.rollOutFun();
-                }
+                }*/
             }
         });
         TweenMax.set('.tile_back_face', { y: -halfCubeHeight, z: -halfCubeHeight, rotationX: -90 });
@@ -301,11 +313,13 @@ function setCubeRolloverEffect() {
         cubeParent.hover(function(e) {
             var front = $(this).find('.cube .tile_front_face');
             if (e.type == 'mouseenter') {
+                front.stop();
                 front.animate({
                     marginTop: -cubeHeight + 'px'
                 }, 800);
             }
             if (e.type == 'mouseleave') {
+                front.stop();
                 front.animate({
                     marginTop: '0px'
                 }, 800);

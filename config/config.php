@@ -6,8 +6,8 @@
 	#===== DBCONFIG START
     define("DB_HOST", "localhost");
     define("DB_USER", "root");
-    define("DB_PASS", "Lock2fit2017");
-    define("DB_DATABASE", "astral_pipes");
+    define("DB_PASS", "Lock2fit");
+    define("DB_DATABASE", "astral_pipes_new");
 	define("SITE_NAME", "http://10.10.10.3/astral-pipes/");
 
 	#===== PROTOCOL.
@@ -23,14 +23,14 @@
 	#==== Base URL
 	define('base_url' , $protocol.$_SERVER['SERVER_NAME'].preg_replace('@/+$@','',dirname($_SERVER['SCRIPT_NAME'])).'/');
     #====== SITE PATH START
-    define("DIR_ROOT", $_SERVER['DOCUMENT_ROOT']."/bharatbenz/");      //DIR PATH
-    define("SITE_ROOT", $protocol.$_SERVER['HTTP_HOST']."/bharatbenz/"); // IP
+    define("DIR_ROOT", $_SERVER['DOCUMENT_ROOT']."/astral-pipes/");      //DIR PATH
+    define("SITE_ROOT", $protocol.$_SERVER['HTTP_HOST']."/astral-pipes/"); // IP
 
     #===== SITE ADMIN PATH START
     define("ADMIN_DIR", $_SERVER['DOCUMENT_ROOT'].dirname($_SERVER['REQUEST_URI']));
     define("ADMIN_SITE", $protocol.$_SERVER['HTTP_HOST'].dirname($_SERVER['REQUEST_URI']));
 
-  	define("ADMIN_COUNT",10);
+  	define("ADMIN_COUNT",15);
 	define("MANDATORY","&nbsp;&nbsp;<SPAN STYLE='color:#FF0000'><sup>*</sup></span>");
 
 	include_once(DIR_ROOT."class/load_utility.php");

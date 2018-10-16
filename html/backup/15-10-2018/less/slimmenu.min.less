@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css?family=Allerta+Stencil|Raleway:300,400,500,600,700');
+
+.menu-collapser{position:relative;width:100%;height:48px;padding:0 8px;color:#FFF;font-size:16px;line-height:48px;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}
+.collapse-button{position:absolute;right:10px;top:19px;width:30px; height:30px;color:#FFFFFF;font-size:14px;text-align:center;background:url(../images/menu.png) no-repeat center center;border-radius:2px;cursor:pointer;transform:translate(0, -50%);-o-transform:translate(0, -50%);-ms-transform:translate(0, -50%);-moz-transform:translate(0, -50%);-webkit-transform:translate(0, -50%);box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}
+.collapse-button .icon-bar{display:block;height:3px;width:25px;margin:3px 0;background-color:@color-blue;border-radius:1px}
+ul.slimmenu{width:100%;font-family:@Av-Light; text-transform: uppercase; margin:0;padding:0;list-style-type:none}
+ul.slimmenu:before,ul.slimmenu:after{content:'';display:table}
+ul.slimmenu:after{clear:both}
+ul.slimmenu.collapsed li{display:block;width:100%;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}
+ul.slimmenu.collapsed li>ul{position:static;display:none}
+ul.slimmenu.collapsed li a{display:block; border-bottom:1px solid rgba(0,0,0,0.075);box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}
+ul.slimmenu.collapsed li .sub-toggle{height:48px}
+ul.slimmenu li{position:relative;display:inline-block;}
+ul.slimmenu li:first-child{ background: none; }
+ul.slimmenu > li{ text-align: right; background: url(../images/nav-divider.png) no-repeat left top 7px;}
+
+ul.slimmenu li ul{ margin:0;list-style-type:none; padding:30px 0px 10px 0px; background: url(../images/menu-layer.png) repeat; }
+ul.slimmenu li ul li{ display:block; float:none; text-align:left; }
+ul.slimmenu li>ul{position:absolute;left:0;top:100%;z-index:999;display:none;width:420px;}
+ul.slimmenu li>ul>li ul{position:absolute;left:100%;top:0;z-index:999;display:none;width:100%}
+ul.slimmenu li a{display:block; padding:20px 15px 35px 15px; color:#000000;font-size:15px; font-weight:400; transition:background-color 0.2s ease-out;-o-transition:background-color 0.2s ease-out;-moz-transition:background-color 0.2s ease-out;-webkit-transition:background-color 0.2s ease-out;}
+ul.slimmenu li:hover a{ color: @color-white;}
+ul.slimmenu > li:hover > a{background: #192733;}
+
+ul.slimmenu li .sub-toggle{ position:absolute;right:0;top:0;z-index:999;width:100%;height:100%;text-align:center;cursor:pointer}
+ul.slimmenu li .sub-toggle:before{content:'';display:inline-block;height:100%;margin-right:-0.25em;vertical-align:middle}
+ul.slimmenu li .sub-toggle>i{display:inline-block;color:#ffffff;font-size:18px;vertical-align:middle; visibility: hidden;}
+
+ul.slimmenu li .sub-toggle > i { color: #333; font-size: 18px; display: block; vertical-align:middle; margin:-35px 15px 0 0; background:url(../images/down-arrow.png) no-repeat center right; text-indent:-9999px; }
+ul.slimmenu li .sub-toggle.expanded > i { color: #333; font-size: 18px; display: block; vertical-align:middle; margin:-35px 15px 0 0; background:url(../images/up-arrow.png) no-repeat right center; text-indent:-9999px; }
+
+ul.slimmenu>li{}
+ul.slimmenu>li:first-child,ul.slimmenu>li.has-submenu+li{border-left:0}
+ul.slimmenu li ul li a{ font-size: 15px; color: #ffffff; line-height: 36px; padding:0px 33px 0px 33px;}
+ul.slimmenu li ul li a:hover{ color:#d6dbdd; }
+
+
+@media handheld, only screen and (max-width: 1157px){
+ul.slimmenu li .sub-toggle>i{ visibility: visible;}
+ul.slimmenu.collapsed li{ }
+ul.slimmenu li a{ color: #ffffff; text-align: center; border: none; }
+ul.slimmenu > li{ background: none; }
+ul.slimmenu.collapsed{ position:absolute; left:0px; width:100%; background-color:@color-blue; }
+ul.slimmenu.collapsed li{ /*border-bottom: 1px solid @color-darkgray;*/ background-color:@color-blue; text-align:left; z-index:9;}
+ul.slimmenu.collapsed li a{ font-size: 16px; color: #ffffff; padding: 18px 19px 17px 18px; border: none;}
+ul.slimmenu.collapsed li a i{ visibility: hidden;}
+ul.slimmenu.collapsed li ul{ padding:10px 0px;}
+ul.slimmenu.collapsed li ul li{ border: none;}
+ul.slimmenu.collapsed li ul li a{ font-size: 14px;line-height: 24px; padding: 0px 19px 0px 15px; border: none;}
+
+ul.slimmenu li > ul{ width: 100%; background: none; }
+ul.slimmenu > li:hover > a{ background:none; color: @color-darkgray; }
+ul.slimmenu li ul li a:hover{ color: @color-darkgray; }
+ul.slimmenu.collapsed li .sub-toggle{ background: url(../images/footer-arrow.png) no-repeat right 20px top 13px; }
+ul.slimmenu.collapsed li .sub-toggle.expanded{ background: url(../images/subnaw-up.png) no-repeat right 20px top 13px; }
+}
+
