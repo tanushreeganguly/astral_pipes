@@ -92,16 +92,17 @@
 								<?php } } ?>
 								
                                 </div>
-                                        
-                              <div class="sub_img_ref">
-                                <img src="<?=base_url?>html/assets/images/products/banner-product.jpg" alt="">
-                                <img src="<?=base_url?>html/assets/images/products/prod_trubuild_05.jpg" alt="">
-                                <img src="<?=base_url?>html/assets/images/products/dummy-01.png" alt="">
-                                <img src="<?=base_url?>html/assets/images/products/banner-product.jpg" alt="">
-                                <img src="<?=base_url?>html/assets/images/products/prod_trubuild_05.jpg" alt="">
-                                <img src="<?=base_url?>html/assets/images/products/dummy-01.png" alt="">
-                                <img src="<?=base_url?>html/assets/images/products/banner-product.jpg" alt="">
-                              </div>
+                                   
+
+							<div class="sub_img_ref">
+								<?php
+								if(isset($prod_arr) && sizeof($prod_arr) > 0){
+								  foreach($prod_arr as $prod_v){
+									?>
+								<img src="<?=base_url?>uploads/astral_defines_images/<?php echo $prod_v['thumbnail'];?>" alt="<?php echo stripslashes($prod_v['title']);?>">
+								<?php }}?>
+							  </div>
+					  
                       
                        </div>
 							</ul>

@@ -441,6 +441,7 @@ header {
   transform: translateY(0);
   position: absolute;
   bottom: 5%;
+  right: 5%;
   width: 100%;
   text-align: center;
   display: inline-block;
@@ -3496,9 +3497,9 @@ h2 span {
 }
 .front_textH {
   position: relative;
+  /*top: 50%;   left: 50%; transform: translateX(-50%) translateY(-50%);*/
   top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  transform: translateY(-50%);
 }
 .bottomimgHov {
   position: absolute;
@@ -3937,12 +3938,7 @@ ul.tabs li.active {
   background: url(../images/arrow-back.png) no-repeat left center;
   padding: 0 0 0 20px;
 }
-.careerForm .backBtn,
-.careerDet .backBtn {
-  /*right: 10px;*/
-  top: 50px;
-  z-index: 1111;
-}
+/* .careerForm .backBtn,  .careerDet .backBtn { right: 10px;  top:50px; z-index: 1111;}*/
 .backBtn:hover {
   color: #0060ae;
   background-position-x: 5px;
@@ -4484,7 +4480,7 @@ ul.tabsAppH li.active {
   display: none;
 }
 .product_graystrip span:first-child {
-  border: none;
+  /* border: none;*/
 }
 .product_graystrip .activeTab {
   color: #0397e1;
@@ -5154,8 +5150,8 @@ ul.tabsAppH li.active {
 }
 #addressSliderCon .mapHolder img {
   position: absolute;
-  left: -310px;
-  top: -450px;
+  left: -150px;
+  top: -600px;
   width: 1100px;
   height: auto;
 }
@@ -5721,6 +5717,14 @@ ul.tabsAppH li.active {
   float: left;
   width: 50%;
 }
+.ifleftimgsec {
+  float: left;
+  width: 50%;
+}
+.textvidlastH {
+  float: right;
+  width: 50%;
+}
 .iframevidH iframe {
   height: 410px;
   max-width: 100%;
@@ -6141,10 +6145,10 @@ ul.tabsAppH li.active {
   text-transform: none;
 }
 .proRecyfixData {
+  width: 65%;
   display: inline-block;
   padding-top: 10px;
-  padding-left: 50px;
-  list-style-position: outside;
+  padding-left: 40px;
 }
 .proRecyfixData h3 {
   color: #0297e0;
@@ -6153,19 +6157,21 @@ ul.tabsAppH li.active {
   padding: 10px 0 10px 0;
 }
 .proRecyfixData ul li {
-  list-style-type: none;
   font-size: 15px;
   line-height: 25px;
+  padding-left: 15px;
+  background: #fff url(../images/hauraton/blue-dots.jpg) no-repeat left 0px top 10px;
 }
-.proRecyfixData ul li::before {
-  content: "•";
-  color: #0297e0;
-  padding: 0px 5px 0px 0px;
+/*.proRecyfixData ul li::before {content: "•"; color:#0297e0;   margin: 0px 10px 0px 0px;}*/
+.proRecyfixData p {
+  font-size: 15px;
+  line-height: 25px;
 }
 .probuttonpostion {
   padding: 10px 0;
 }
 .proimgmainprorecyfix {
+  width: 33%;
   display: inline-block;
   vertical-align: top;
 }
@@ -6202,7 +6208,7 @@ ul.tabsAppH li.active {
   color: #fff;
 }
 .pro_tabsBlurb a.nomarginlast {
-  margin-right: 0px;
+  /* margin-right:0px;*/
 }
 .download_brochure {
   text-align: center;
@@ -7069,6 +7075,41 @@ nav { width: auto!important; }
     background: url(../images/icon-insta-white.png) no-repeat center center;
   }
   .headerCon .hd_top .linkd_icon {
+    width: 19px;
+    height: 17px;
+    background: url(../images/icon-linkdein-white.png) no-repeat center center;
+  }
+  .headerCon .hd_top .whats_icon:hover {
+    width: 19px;
+    height: 17px;
+    background: url(../images/icon-whatsapp-white.png) no-repeat center center;
+  }
+  .headerCon .hd_top .email_icon:hover {
+    width: 19px;
+    height: 17px;
+    background: url(../images/icon-email-white.png) no-repeat center center;
+  }
+  .headerCon .hd_top .fb_icon:hover {
+    width: 19px;
+    height: 17px;
+    background: url(../images/icon-fb-white.png) no-repeat center center;
+  }
+  .headerCon .hd_top .tw_icon:hover {
+    width: 19px;
+    height: 17px;
+    background: url(../images/icon-tw-white.png) no-repeat center center;
+  }
+  .headerCon .hd_top .yt_icon:hover {
+    width: 19px;
+    height: 17px;
+    background: url(../images/icon-yt-white.png) no-repeat center center;
+  }
+  .headerCon .hd_top .insta_icon:hover {
+    width: 19px;
+    height: 17px;
+    background: url(../images/icon-insta-white.png) no-repeat center center;
+  }
+  .headerCon .hd_top .linkd_icon:hover {
     width: 19px;
     height: 17px;
     background: url(../images/icon-linkdein-white.png) no-repeat center center;
@@ -7973,13 +8014,18 @@ nav { width: auto!important; }
   .headerlistingsec li.activemain {
     color: #fff;
   }
+  .proimgmainprorecyfix {
+    display: block;
+  }
   .proRecyfixData {
     padding-left: 10px;
+    width: 100%;
+    padding-left: 0px;
+    display: block;
   }
   .iframevidH {
     position: relative;
     padding-bottom: 56.25%;
-    padding-top: 30px;
     height: 0;
     overflow: hidden;
     width: 100%;
@@ -8019,8 +8065,19 @@ nav { width: auto!important; }
     border-right: none;
     height: auto;
   }
+  .textvidlastH {
+    float: none;
+    width: 100%;
+  }
+  .ifleftimgsec {
+    float: none;
+    width: 100%;
+  }
 }
 @media handheld, only screen and (max-width: 767px) {
+  #addressSliderCon h1 {
+    background-image: none;
+  }
   .galleryproSlBlurb .gallery_heading h2 {
     background-image: none;
   }
@@ -8974,6 +9031,10 @@ nav { width: auto!important; }
   }
 }
 @media handheld, only screen and (max-width: 375px) {
+  .proimgmainprorecyfix img {
+    width: 100%;
+    height: auto;
+  }
   .animationparsecH h2 {
     font-size: 25px;
   }

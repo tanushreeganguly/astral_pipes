@@ -68,8 +68,7 @@ $row		=	$objTypes->fetchRow($sql);
 		 <div class="aboutproductinfoM">
 			<div class="abouheadinsecond"><h2><?=$row['label'];?></h2></div>       
 			<div class="proimgmainprorecyfix"><img src="<?=base_url?>uploads/micro_brand/<?=$row['about_image']?>"></div>
-			<div class="proRecyfixData">
-			 <ul>
+			<div class="proRecyfixData">			 
 				<h3><?php echo isset($row['title']) ? $row['title']: '' ?></h3>
 				<?=stripslashes($row['about'])?>
 				<span id="readmore_data" style="display:none">
@@ -80,8 +79,7 @@ $row		=	$objTypes->fetchRow($sql);
 						<div class="probuttonpostion" id="more_about">
 							<a href="javascript:;" class="commanBtn" id="readmore">Read more</a>
 						</div>
-					<?php } ?>
-			 </ul> 
+					<?php } ?>			 
 			</div>
 		 </div>
 	   </div>

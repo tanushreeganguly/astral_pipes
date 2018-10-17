@@ -4,7 +4,7 @@ $id 	= 	$_POST['id'] ? $_POST['id'] : '';
 $sql	=	"select * from  tbl_product_range where is_active=1 and is_delete=1 and id= ".$id; 
 $data 	= 	$objTypes->fetchRow($sql);
 if(is_array($data)) { ?>
- <a href="#" class="close"></a>  
+ <a href="javascript:;" class="close"></a>  
 	<div class="leftsideimg">
 		<img src="<?=base_url?>uploads/product_range_images/<?=$data['image']?>" alt="<?=$data['title']?>">
 	</div>

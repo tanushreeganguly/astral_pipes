@@ -50,7 +50,7 @@ if(($POST['SAVE']=="SAVE")){
 
 
 	if($insert_id > 0){
-		$validatefiles 	= array("jpg", "bmp", "jpeg", "gif","JPG", "BMP", "JPEG", "GIF","png","PNG");
+		$validatefiles 	= array("png","PNG","jpg", "bmp", "jpeg", "gif","JPG", "BMP", "JPEG", "GIF","png","PNG");
 		$filetype 		= array('image/gif', 'image/jpeg','image/JPG','image/jpg', 'image/JPEG', 'image/GIF', 'image/bmp', 'image/BMP','image/png','image/PNG');
 
 		
